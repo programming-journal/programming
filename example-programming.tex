@@ -1,0 +1,819 @@
+% -*- coding: utf-8; -*-
+% vim: set fileencoding=utf-8 :
+\documentclass[english,submission]{programming}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{example.bib}
+
+\usepackage{multicol}
+
+\lstdefinelanguage[programming]{TeX}[AlLaTeX]{TeX}{%
+  deletetexcs={title,author,bibliography},%
+  deletekeywords={tabular},
+  morekeywords={abstract},%
+  moretexcs={chapter},%
+  moretexcs=[2]{title,author,subtitle,keywords,maketitle,titlerunning,authorinfo,affiliation,authorrunning,paperdetails,acks,email},
+  moretexcs=[3]{addbibresource,printbibliography,bibliography},%
+}%
+\lstset{%
+  language={[programming]TeX},%
+  keywordstyle=\firamedium,
+  stringstyle=\color{RosyBrown},%
+  texcsstyle=*{\color{Purple}\mdseries},%
+  texcsstyle=*[2]{\color{Blue1}},%
+  texcsstyle=*[3]{\color{ForestGreen}},%
+  commentstyle={\color{FireBrick}},%
+  escapechar=`,%
+}
+\newcommand*{\CTAN}[1]{%
+  \href{http://ctan.org/tex-archive/#1}{\nolinkurl{CTAN:#1}}%
+}
+
+
+\begin{document}
+
+
+\title{Writing Articles for The Art, Science, and Engineering of Programming}
+\titlerunning{Writing for Programming} %optional, in case that the title is too long; the running title should fit into the top page column
+
+\author[a]{Tobias Pape}
+\authorinfo{is the author of this {LaTeX} class. Contact him at
+  \email{tobias.pape@hpi.uni-potsdam.de}.}
+\affiliation[a]{Hasso Plattner Institute, University of Potsdam, Germany}
+\author{Cristina V. Lopes}
+\authorinfo{is associate editor for the first two issues of The Art, Science,
+  and Engineering of Programming. Contact her at \email{lopes@ics.uci.edu}.}
+\affiliation{University of California, Irvine, USA}
+\author[a]{Robert Hirschfeld}
+\authorinfo{is chair of the AOSA steering committee. The Art, Science,
+  and Engineering of Programming is published by AOSA. Contact Robert at \email{hirschfeld@hpi.uni-potsdam.de}.}
+
+% \authorrunning{T. Pape, C. Lopes, R. Hirschfeld} % Optional, for long author lists
+
+\keywords{programming journal, paper formatting, submission preparation} % please provide 1--5 keywords
+
+
+%%%%%%%%%%%%%%%%%%
+%% These data must be filled for your submission. May be left out in final version
+\paperdetails{
+  area={Social Coding},
+  perspective=art,
+}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+%% These data are provided by the editors. May be left out on submission
+\paperdetails{
+  submitted=2016-08-10,
+  published=2016-10-11,
+  year=2016,
+  volume=1,
+  issue=1,
+  articlenumber=1,
+}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please go to https://dl.acm.org/ccs/ccs.cfm and generate your Classification
+% System [view CCS TeX Code] stanz and copy _all of it_ to this place.
+%% From HERE
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002944.10011122.10003459</concept_id>
+<concept_desc>General and reference~Computing standards, RFCs and guidelines</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010405.10010476.10010477</concept_id>
+<concept_desc>Applied computing~Publishing</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[300]{General and reference~Computing standards, RFCs and guidelines}
+\ccsdesc[500]{Applied computing~Publishing}
+
+% To HERE
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+% Please always include the abstract.
+\begin{abstract}
+  The Art, Science, and Engineering of Programming is a new journal created
+  with the goal of placing the wonderful art of programming in the map of
+  scholarly works. Many academic journals and conferences exist that publish
+  research related to programming, starting with programming languages,
+  software engineering, and expanding to the whole Computer Science field. Yet,
+  many of us feel that, as the field of Computer Science expanded, programming,
+  in itself, has been neglected to a secondary role not worthy of scholarly
+  attention. That is a serious gap, as much of the progress in Computer Science
+  lies on the basis of computer programs, the people who write them, and the
+  concepts and tools available to them to express computational tasks.
+
+  The Art, Science, and Engineering of Programming aims at closing this gap by
+  focusing primarily on programming: the art itself (programming styles,
+  pearls, models, languages), the emerging science of understanding what works
+  and what doesn’t work in general and in specific contexts, as well as more
+  established engineering and mathematical perspectives.
+  
+  This is an example of and a guide to writing articles for The Art, Science,
+  and Engineering of Programming.
+ \end{abstract}
+
+\section{A Guided Tour}
+\label{sec:guided-tour}
+
+The content of a paper is its most important ingredient. That being said,
+papers for The Art, Science, and Engineering of Programming should adhere to a
+common style, which is achieved with the \lstinline|programming| {LaTeX}
+class. You are to use this class as outlined here when submitting articles to
+the journal. This document acts as an example of what this can look like and a
+short references for all the required and optional parts.
+
+\subsection{Document Parts}
+\label{sec:document-parts}
+
+
+\begin{lstlisting}[float,label=lst:tour,caption={A very minimal article.}]
+\documentclass[english,submission]{programming}`\label{l:doc}`
+\usepackage[backend=biber]{biblatex} % Use Biblatex `\label{l:bib}`
+\addbibresource{example.bib}
+
+\begin{document}
+
+\paperdetails{`\label{l:details}`
+  perspective=engineering,
+  area={General-purpose programming}
+}
+
+\title{The importance of why and how to do work}`\label{l:meta}`
+\author{Anna Author}
+\affiliation{The Unseen University, Ankh-Morpork}
+\author{Bert Betatester}
+\affiliation{Carolingian Minuschool Academy, Bodoni, San Serriffe}
+
+\keywords{paper, showcase, lorem ipsum}`\label{l:keywords}`
+
+\begin{CCSXML}`\label{l:ccs:start}`
+<ccs2012>
+<concept>
+<concept_id>10002944.10011122.10003459</concept_id>
+<concept_desc>General and reference~Computing standards, RFCs and guidelines</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[300]{General and reference~Computing standards, RFCs and guidelines}`\label{l:ccs:end}`
+
+\maketitle
+
+\begin{abstract}
+  This paper shows...
+\end{abstract}
+
+\section{Introduction}
+The art of computer programming~\cite{DBLP:journals/cacm/Knuth74}...
+\section{...}
+...
+\acks`\label{l:acks}`
+I want to thank ....
+
+\printbibliography
+\end{document}
+\end{lstlisting}
+
+{\lstset{language=}%
+  We have included a most minimal article in \autoref{lst:tour} that you can
+  adapt to the concrete work to be submitted\footnote{Please note that all
+    article source must be \textsc{utf-8} encoded, no exceptions.}. First, you
+  have to select the \lstinline|programming| class as in \autoref{l:doc}. The
+  parameter \lstinline|english| is for language selection (optional, but
+  recommended). The other parameter, \lstinline|submission|, is crucial for the
+  reviewing process and must be included for submission. More information on
+  document parameters can be found in \autoref{sec:class-options}. After that,
+  wce recommend that you load the \lstinline|biblatex| package. While it is
+  perfectly fine to use plain {BibTeX}, we recommend
+  \lstinline|biblatex|, as it has native Unicode support and can handle
+  \textsc{url}s and \textsc{doi}s better. In both cases, we have preloaded a
+  bibliography style.
+
+At that point, you can load any {LaTeX} package you need. Note that we
+already load some important packages with the \lstinline|programming| class and
+that there are certain packages that are not recommended or incompatible with
+this class. Please refer to \autoref{sec:pack-cons} for information on which
+packages are recommended.
+After that, you start the actual document with \lstinline|\begin{document}|.
+
+  You have to provide details to your submission that will be used during the
+  review process. For that, use the \lstinline|paperdetails| command and
+  specify \emph{perspective} and \emph{area} of your submission. For
+  perspective, choose form one of the \emph{Art}, \emph{theoretical} or
+  \emph{empirical} \emph{Science}, or \emph{Engineering} and provide it as
+  argument to the \lstinline|perspective| keyword; they can be found in
+  \autoref{sec:perspective}. For area, specify an argument to the
+  \lstinline|area| keyword (in braces). Find a list of suggested areas in
+  \autoref{sec:area-submission}.
+
+We need you to provide certain metadata which you can do with the following
+commands, as form \autoref{l:meta}. You can specify the title and maybe the subtitle with
+\lstinline|\title| (and \lstinline|\subtitle|, respectively). Then please
+list all authors. For that, use one \lstinline|\author| command per author
+and give an affiliation for each with \lstinline|\affiliation|. When several
+consecutive authors share the same affiliation, you should only use one
+\lstinline|\affiliation| command after the last of them. More information can
+be found in \autoref{sec:document-metadata}. 
+
+Please include one to five keywords, separated by commas, that are important to
+your work with the \lstinline|\keywords| command as in \autoref{l:keywords}. We
+kindly ask you to classify your work using the \emph{ACM Computing
+  Classification System}\footnote{\url{https://dl.acm.org/ccs/ccs.cfm}.}.
+Please visit the ACM's website and generate the {TeX} code that matches
+your classification. The code should consist of a \lstinline|CCSXML|
+environment and several \lstinline|\ccsdesc| commands, as in lines
+\ref{l:ccs:start} to \ref{l:ccs:end}.
+
+With \lstinline|\maketitle| and the \lstinline|abstract| environment, you can
+produce the article's title page. Then you can start with your content. If
+applicable, you can put acknowledgements at the end after an \lstinline|\acks|
+command, as in \autoref{l:acks}.
+}
+
+This should cover the basic usage.
+
+\subsection{Running {LaTeX}}
+\label{sec:running}
+
+This class has been tested with the popular {LaTeX} programs available.
+It should work with {pdfLaTeX}, {LuaLaTeX}, and {XeLaTeX}.
+We suggest that you use {LuaLaTeX}, which is included in all major
+{TeX} system installations, has a good Unicode support, and is well portable.
+Please do not use the LaTeX/dvips combination to produce output files.
+To get all metadata right, several LaTeX runs will be necessary. Hence, a
+typical run looks like this:
+\begin{lstlisting}[language=]
+lualatex myarticle
+biber myarticle
+lualatex myarticle
+lualatex myarticle
+\end{lstlisting}
+
+You should replace \lstinline|lualatex| with the LaTeX program of your choice,
+and \lstinline|biber| with \lstinline|bibtex| if you do not want to use
+Biblatex (or use Biblatex's BibTeX backend).
+
+Your \textsc{pdf} file for your article should then be ready for submission.
+
+\section{Submission Classification}
+
+Almost anything about programming is in scope for The Art, Science, and
+Engineering of Programming. However, you should classify your article according
+to the following aspects.
+
+
+
+
+\subsection{Perspective}
+\label{sec:perspective}
+
+We accept descriptions of work under different perspectives:
+
+\emph{The Art.} This perspective is about knowledge and technical skills acquired through
+practice and personal experiences. Examples include libraries, frameworks,
+languages, APIs, programming models and styles, programming pearls, and essays
+about programming.
+
+\emph{Science (theoretical).} This perspective is about knowledge and technical skills acquired
+through mathematical formalisms. Examples include formal programming models and
+proofs.
+
+\emph{Science (empirical).} This perspective is about knowledge and technical skills acquired
+through experiments and systematic observations. Examples include user studies
+and programming-related data mining.
+
+\emph{Engineering.} This perspective is about knowledge and technical skills acquired through
+designing and building large systems and through calculated application of
+principles in building those systems. Examples include measurements of
+artifacts’ properties, development processes and tools, and quality assurance
+methods.
+
+\bigskip
+To classify your work as any of the above perspectives, please set the
+\lstinline|perspective| keyword of  the \lstinline|\paperdetails| command to
+one of the following values:
+
+\begin{description}
+\item[art] for submissions concerning \emph{The Art }
+  (\textsf{theart} is a proper alias);
+\item[sciencetheoretical] For submissions concerning \emph{Science
+    (theoretical)}, with aliases \textsf{sciencetheoretical},
+  \textsf{theoreticalscience}, \textsf{theoretical},
+  \textsf{science-theoretical}, and \textsf{theoretical-science};
+\item[scienceempirical] for submissions concerning \emph{Science (empirical)},
+  aliases are \textsf{scienceempirical}, \textsf{empiricalscience},
+  \textsf{empirical}, \textsf{science-empirical}, and
+  \textsf{empirical-science}; and
+\item[engineering] for submissions concerning \emph{Engineering}.
+\end{description}
+
+\subsection{Area of Submission}
+\label{sec:area-submission}
+
+Independent of the type of work, the journal accepts submissions covering
+several expertise areas. Expertise areas include, but are not limited to:
+
+\begin{itemize}
+\item General-purpose programming
+\item Distributed systems programming
+\item Parallel and multi-core programming
+\item Graphics and GPU programming
+\item Security programming
+\item User interface programming
+\item Database programming
+\item Visual and live programming
+\item Data mining and machine learning programming, and for programming
+\item Interpreters, virtual machines and compilers
+\item Modeling and modularity
+\item Testing and debugging
+\item Program verification
+\item Programming education
+\item Programming environments
+\item Social coding
+\end{itemize}
+
+To specify the area of expertise for your work, please set the
+\lstinline|area| keyword of  the \lstinline|\paperdetails| command to
+one of the preceding suggested areas, or provide your own. Please use curly
+braces \lstinline|{}| around the value.
+
+\section{Typographical and Technical Aspects}
+
+We have carefully chosen the presentation for articles published in The Art, Science, and
+Engineering of Programming to fit on-screen reading and occasional printouts.
+It is important to maintain a uniform look of all articles appearing in the
+journal. We kindly ask you therefore to \emph{not} change the presentation. Most
+importantly,
+%
+\begin{itemize}
+\item please do not change the font or the font size for that matter. The text
+  font remains fixed as \emph{Charter} (in the XCharter variant) and emphasis
+  font is \emph{Fira Sans}. The only exception is the typewriter font, where
+  you can choose from three variants (please refer to
+  \autoref{sec:typewriter-fonts}). Moreover;
+\item please do not change the margins or the line spacing;
+\item please refrain from using the \lstinline|\sloppy| command, especially for
+  the whole document;
+\item please avoid the use of the \lstinline|[H]| or \lstinline|[h!]| modifiers
+  for figures;
+\item please use a consistent formatting  (for example, use the
+  \lstinline|siunitx| package~\cite{siunitx}.)
+\end{itemize}
+%
+This class has been tested on several LaTeX systems. We suggest that you use an
+up-to-date system, for example
+TeX\,Live\footnote{\url{https://www.tug.org/texlive/}.}, which is available for
+Linux, Windows, and Apple systems, among others. We tested with the 2015 and
+2016 systems and will make sure that it will work with upcoming systems, too.
+Please first upgrade your system if problems with this class should occur.
+Regarding the LaTeX system, please keep in mind to
+%
+\begin{itemize}
+\item use LaTeX packages only if required, as fewer packages lower the
+  chance of conflicts (refer to \autoref{sec:pack-cons} for details);
+\item keep the use of custom macros low to not interfere with provided
+  packages and use LaTeX commands to do so (for example, \lstinline|\newcommand| and
+  similar instead of TeX's \lstinline|\def|);
+\item watch out for unsuitable line- and pagebreaks;
+\item when using pixel graphics, provide at least 300\,dpi imagery,
+  \textsc{pdf} files preferred;
+\item minimize the use of LaTeX comments, especially via block constructs;
+\item consult the \emph{l2tabu} documentation~\cite{l2tabu} about outdated packages;
+\item provide \textsc{doi}s for all your references, if possible.
+\end{itemize}
+%
+We suggest the use of a spellchecker to avoid typos.
+
+\section{Detailed Reference}
+
+Several aspects of this class as outlined above provide for some fine tuning.
+
+\subsection{Class Options}
+\label{sec:class-options}
+
+As explained in~\autoref{sec:guided-tour}, submissions to the journal must use
+the \lstinline|submission| package option. For the accepted final, to-be-published
+version, this option should be omitted or replaced by  \lstinline|crc| for
+“Camera-ready Copy”. Actually, both are shortcuts for the
+\lstinline|phase| keyword, which could be used, instead. 
+Hence, the following statements in either column are equivalent:\par\noindent
+{\lstset{texcsstyle=*{\color{Purple}\mdseries\smaller}}
+\begin{minipage}[t]{.45\linewidth}
+\emph{Final phase}
+\begin{lstlisting}
+\documentclass[phase=final]{programming}
+\documentclass[crc]{programming}
+\documentclass{programming}
+\end{lstlisting}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{.5\linewidth}
+\emph{Submission phase}
+\begin{lstlisting}[numbers= none]
+\documentclass[phase=submission]{programming}
+\documentclass[submission]{programming}
+``
+\end{lstlisting}
+\end{minipage}}
+
+\paragraph{Code Fonts}
+\label{sec:typewriter-fonts}
+
+The standard font for code, as selected with \lstinline|\texttt|,
+\lstinline|\ttfamily|, or a listing, is set to be the same as the sans serif
+font, \emph{Fira Sans}. This matches the rest of the document style very well.
+However, it may be strictly necessary to have a non-proportional (or
+monospaced) font for the typewriter style. We therefore provide a class option \lstinline|code|
+to change the typewriter font. 
+It takes one the following values:
+\begin{description}
+\item[code=sf] Sets the code font to the sans serif font (Fira Sans). This is the
+  default. Aliases for this option are \lstinline|code=sans| and
+  \lstinline|code=sansserif|.
+\item[code=tt] Sets the code font to Fira Sans' monospaced equivalent, Fira Mono. Aliases for this option are \lstinline|code=mono| and
+  \lstinline|code=monospace|. This is the preferred choice if monospaced
+  typewriter font is necessary. Note that this font does not have italics.
+\end{description}
+
+\paragraph{Other Options}
+
+All other options give in the \lstinline|\documentclass| command are not
+processed directly by the class but rather passed on to other packages as
+``global options''. For example, the \lstinline|english| option from the
+example above does not influence the \lstinline|programming| class directly,
+but rather will be picked up by Babel~\cite{babel} to set up language options.
+
+\subsection{Document Metadata}
+\label{sec:document-metadata}
+
+The presentation of the document metadata can be fine tuned, as well.
+Besides the \lstinline|\title| and \lstinline|\subtitle| commands, there is the
+\lstinline|\titlerunning| command to specify a shorter title when the normal
+title does not fit into the page header. Similarly, the
+\lstinline|\authorrunning| command can be used to specify the presentation of
+the authors in the header.
+
+Sometime listing the affiliations of the authors can be tricky when they are
+shared. An optional argument to the \lstinline|\author| and
+\lstinline|\affiliation| command can be used to associate authors and
+affiliations explicitly. Four variants for affiliations are outlined in the
+beginning of \autoref{lst:affiliation}.
+
+For the final publication, we ask you to provide a short information of each
+author, typically a very short biography, and a photo. You can use the
+\lstinline|\authorinfo| command right after an \lstinline|\author| command to
+associate that author information with an author. See \autoref{l:authorinfo} in
+\autoref{lst:affiliation} for example. The photo is given as optional argument
+as file name in brackets (without file extension). Omitting the photo will
+produce a blank space next to the author information. The actual information
+follows as an argument. Note that the author's \emph{name} is prepended to the
+information automatically and is not to be repeated.
+
+An author's email address can be given in either the affiliation or author
+information block. Please use the \lstinline|\email| command for that purpose.
+
+\begin{lstlisting}[float,label=lst:affiliation,caption={Four
+ways to specify affiliations\,/\,Author information example\,/\,Sample publication paper details}]
+% Independent affiliations 
+\author{Anna Author}
+\affiliation{The Unseen University, Ankh-Morpork}
+\author{Bert Betatester}
+\affiliation{Carolingian Minuschool Academy, Bodoni, San Serriffe}
+
+% Shared affiliations 
+\author{Anna Author}
+\author{Bert Betatester}
+\affiliation{Carolingian Minuschool Academy, Bodoni, San Serriffe}
+
+% Explicit affiliations 
+\author[a]{Anna Author}
+\author[b]{Bert Betatester}
+\author[a]{Claire Cadence}
+\affiliation[a]{The Unseen University, Ankh-Morpork}
+\affiliation[b]{Carolingian Minuschool Academy, Bodoni, San Serriffe}
+
+% Mixed affiliations 
+\author[a]{Anna Author}
+\author[a,b]{Bert Betatester}
+\affiliation[a]{The Unseen University, Ankh-Morpork}
+\affiliation[b]{Carolingian Minuschool Academy, Bodoni, San Serriffe}
+
+% Author information`\label{l:authorinfo}`
+\author{Anna Author}
+\authorinfo[anna]{is a researcher at the Unseen University in Ankh-Morpork and
+a Ph\,D student to Rincewind. Contact her at
+\email{anna.the.author@univ-unseen.edu.pratchett}}  
+\affiliation[a]{The Unseen University, Ankh-Morpork}
+
+
+%%%%%%%%%% Sample publication paper details
+\paperdetails{
+  submitted=2017-02-18,
+  published=2017-08-01,
+  year=2017,
+  volume=2,
+  issue=1,
+  articlenumber=4,
+}
+\end{lstlisting}
+
+\subsection{Paper Details}
+
+Besides specifying the perspective and area of the submission, the
+\lstinline|\paperdetails| command is also used to provide publication
+information for the final, camera-ready-copy phase (class option
+\lstinline|phase=final|). In this case, perspective and area are removed from
+the title page and the Digital Object Identifier (\textsc{doi}), as well as the
+dates of submission and publications are presented instead. The information
+necessary for this is provided \emph{by the publisher} after acceptance. It
+includes the following information:
+%
+\begin{description}
+\item[year] The year of the articles publication.
+\item[volume] The volume the article appears in.
+\item[issue] The issue the article appears in.
+\item[articlenumber] The number of the article within the volume.
+\item[submitted] The date the article was submitted to (and received by) the
+  publisher. Please use an \textsc{iso} date (\textsc{yyyy-mm-dd}).
+\item[publisher] The date the article was published and made public by the
+  publisher. Please use an \textsc{iso} date (\textsc{yyyy-mm-dd}).
+\end{description}
+%
+See the end of \autoref{lst:affiliation} for an example.
+
+\subsection{Figures, Tables, Listings}
+
+Sometimes it is necessary to pay special attention to the \emph{floating
+  elements} of your document, that is figures, tables, listings, and similar. 
+While it is tempting to force those elements to the specific position where
+they are written down, this is not always the best choice, especially since it
+can interrupt the reading flow. Therefore please refrain form using the
+\lstinline|[h!]| and  \lstinline|[H]| specifiers for such elements. If you
+\emph{must} have the element at the current position, it maybe is not a
+\emph{floating element}, in the first place. It is perfectly fine to use
+graphics \emph{without} a \lstinline|\begin{figrue}...\end{figure}| environment
+or use a \lstinline|\begin{tabular}...\end{tabular}| \emph{without} an
+enclosing \lstinline|\begin{table}...\end{table}|.
+
+
+\begin{figure}
+  \centering
+  \setlength{\unitlength}{.01in}%{.025in}
+  \begin{picture}(200,75)
+    \put(0,25){\vector(1,0){200}}
+    \put(25,0){\vector(0,1){75}}
+    \put(75,22){\line(0,1){6}}
+    \put(125,22){\line(0,1){6}}
+    \put(22,50){\line(1,0){6}}
+    \thicklines
+    \put(25,25){\line(1,0){50}}
+    \put(75,50){\line(1,0){50}}
+    \put(125,25){\line(1,0){72}}
+    \put(17,50){\makebox(0,0){$1$}}
+    \put(75,13){\makebox(0,0)[b]{$\pi$}}
+    \put(125,13){\makebox(0,0)[b]{$2\pi$}}
+    \put(195,13){\makebox(0,0)[b]{$t$}}
+    \put(175,60){\makebox(0,0){$g(t)$}}
+  \end{picture}
+  \caption{A test figure}
+  \label{fig:test}
+\end{figure}
+
+
+The caption position of a floating element should match its content. For
+figures, graphs, graphics, or similar, please us captions \emph{below} the
+imagery, as in \autoref{fig:test}. For tables, listings, algorithms, or similar list-like content, please
+use captions \emph{above} its contents, as those elements are typically read
+from top to bottom. Find examples in the listings already presented and
+\autoref{tbl:things}.
+
+For tabular content, we suggest to avoid vertical lines altogether and keep
+horizontal lines to a minimum. Refer to the \lstinline|booktabs| package
+documentation for more information~\cite{booktabs}. Also, the
+\lstinline|threeparttable| package is valuable if you need footnotes in your
+table~\cite{threeparttable}.
+
+\begin{table}
+  \centering
+  \begin{threeparttable}
+    \caption{Differences between things projected and things achieved}
+    \label{tbl:things}
+    \small
+    \begin{tabular}{>{}p{.4\linewidth}@{}cSs}
+      \toprule
+      Part           & done & {Value}   & Unit                      \\
+      \midrule
+      Title          & yes  &    2.3456 & \dB                       \\
+      Abstract       & no   &           &                           \\
+      Intro          & yes  &       e3  & \kilo\hertz               \\
+      \midrule
+      \multicolumn{4}{c}{Rest is not entirely true}                 \\
+      \midrule
+      Context        & yes  &   90.473  & \percent                  \\
+      Problem        & no\tnote{a} &    &                           \\
+      Solution       & yes  & 5642.5    & \mega\byte                \\
+      Implementation & yes  &    1.2e-3 & \metre\squared\per\second \\
+      Evaluation     & no   &           &                           \\
+      Related Work   & no   &           &                           \\
+      Conclusion     & yes  &    4955.3 & \per\kilogram             \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+    \item [a] Just a few things missing
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+
+\subsection{Bibliography}
+
+As outlined, the \lstinline|programming| class supports both plain BibTeX as
+well as the newer Biblatex bibliography package to present your references.
+Please note that you may not change the bibliography style, it is pre-selected
+by the class. 
+
+Programming uses a simple, numbered bibliography scheme with all references
+sorted alphabetically, which should look like this:
+\cite{DBLP:journals/cacm/Knuth74}. Note that the reference has the \textsc{doi}
+included. We would like to encourage you to always provide the \textsc{doi}s of
+the works you cite, if possible. However, please make sure in your bibliography
+file, that the \lstinline|doi| entry a plain entry without a ``resolver'' (for
+example, \textsf{http://dx.doi.org/}) prepended. A typical example for an entry
+format should look like in \autoref{lst:bib}. Please shorten neither names nor
+journal articles, if possible.
+
+The bibliography commands for your article should look like this (for Biblatex
+and plain BibTeX, respectively):\par\noindent
+\begin{minipage}[t]{.45\linewidth}
+\emph{Biblatex}
+\begin{lstlisting}
+\documentclass{programming}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{example.bib}
+\begin{document}
+...
+\printbibliography
+\end{document}
+\end{lstlisting}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{.45\linewidth}
+\emph{Plain  Bibtex}
+\begin{lstlisting}[numbers= none]
+\documentclass{programming}
+
+
+\begin{document}
+...
+\bibliography{example}
+\end{document}
+\end{lstlisting}
+\end{minipage}
+
+
+\begin{lstlisting}[float,label=lst:bib,language=,caption={A typical BibTeX entry for \cite{DBLP:journals/cacm/Knuth74}}]
+@article{DBLP:journals/cacm/Knuth74,
+  Author = {Donald E. Knuth},
+  Doi = {10.1145/361604.361612},
+  Journal = {Communications of the {ACM}},
+  Number = {12},
+  Pages = {667–673},
+  Title = {{Computer Programming as an Art}},
+  Volume = {17},
+  Year = {1974}}
+\end{lstlisting}
+
+
+\subsection{{LaTeX} Packages Considerations }
+\label{sec:pack-cons}
+
+The following packages are automatically loaded by the \lstinline|programming|
+class and need not to be loaded manually.
+
+\begin{multicols}{3}
+{\color{DarkGreen}
+\begin{itemize}
+\item \path{accsupp}
+\item \path{amsmath}
+\item \path{amstext}
+\item \path{array}
+\item \path{atbegshi}
+\item \path{babel}
+\item \path{booktabs}
+\item \path{calc}
+\item \path{caption}
+\item \path{colortbl}
+\item \path{comment}
+\item \path{csquotes}
+\item \path{doclicense}
+\item \path{expl3}
+\item \path{FiraSans}
+\item \path{fnpct}
+\item \path{fontspec}\footnote{LuaLaTeX\,/\,XeLaTeX only}
+\item \path{fontenc}
+\item \path{gettitlestring}
+\item \path{graphics}
+\item \path{graphicx}
+\item \path{grfext}
+\item \path{hypcap}
+\item \path{hyperref}
+\item \path{hyperxmp}
+\item \path{listings}
+\item \path{mathdesign}
+\item \path{microtype}
+\item \path{morewrites}
+\item \path{multirow}
+\item \path{relsize}
+\item \path{rotating}
+\item \path{siunitx}
+\item \path{subcaption}
+\item \path{tabularx}
+\item \path{textcase}
+\item \path{textcomp}
+\item \path{threeparttable}
+\item \path{typearea}
+\item \path{url}
+\item \path{verbatim}
+\item \path{xcolor}
+\item \path{xparse}
+\item \path{xspace}
+\item \path{xunicode}
+\end{itemize}}
+\end{multicols}
+
+\par\noindent The following packages \emph{must not} be loaded.
+
+\begin{multicols}{3}
+{\color{DarkRed}
+\begin{itemize}
+\item \path{SIstyle}
+\item \path{SIunits}
+\item \path{a4wide}
+\item \path{a4}
+\item \path{aecompl}
+\item \path{ae}
+\item \path{caption2}
+\item \path{courier}
+\item \path{doublespace}
+\item \path{epsfig}
+\item \path{epsf}
+\item \path{euler}
+\item \path{fancyhdr}
+\item \path{fancyheadings}
+\item \path{fourier}
+\item \path{geometry}
+\item \path{glossary}
+\item \path{helvet}
+\item \path{isolatin}
+\item \path{mathpple}
+\item \path{mathptmx}
+\item \path{mathptm}
+\item \path{newtxmath}
+\item \path{newtxtext}
+\item \path{palatino}
+\item \path{psfig}
+\item \path{pslatex}
+\item \path{scrpage}
+\item \path{subfigure}
+\item \path{subfig}
+\item \path{t1enc}
+\item \path{times}
+\item \path{umlaut}
+\item \path{utopia}
+\item \path{zefonts}
+\end{itemize}}
+\end{multicols}
+
+Additionally, any package that changes the font must not be loaded.
+
+\acks
+We want to thank you for using this class to prepare articles for The Art, Science, and Engineering of Programming.
+\printbibliography
+
+\appendix
+\section{A Famous Filler Text}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum. 
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:
