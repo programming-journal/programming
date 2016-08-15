@@ -5,8 +5,12 @@
 \usepackage[backend=biber]{biblatex}
 \addbibresource{example.bib}
 
+%
+% Packages and Commands specific to article
+%
+% These ones  are used in the guide, replace with your own.
+% 
 \usepackage{multicol}
-
 \lstdefinelanguage[programming]{TeX}[AlLaTeX]{TeX}{%
   deletetexcs={title,author,bibliography},%
   deletekeywords={tabular},
@@ -23,15 +27,11 @@
   texcsstyle=*[2]{\color{Blue1}},%
   texcsstyle=*[3]{\color{ForestGreen}},%
   commentstyle={\color{FireBrick}},%
-  escapechar=`,%
-}
-\newcommand*{\CTAN}[1]{%
-  \href{http://ctan.org/tex-archive/#1}{\nolinkurl{CTAN:#1}}%
-}
+  escapechar=`,}
+\newcommand*{\CTAN}[1]{\href{http://ctan.org/tex-archive/#1}{\nolinkurl{CTAN:#1}}}
 
 
 \begin{document}
-
 
 \title{Writing Articles for The Art, Science, and Engineering of Programming}
 \titlerunning{Writing for Programming} %optional, in case that the title is too long; the running title should fit into the top page column
@@ -591,20 +591,6 @@ enclosing \lstinline|\begin{table}...\end{table}|.
   \label{fig:test}
 \end{figure}
 
-
-The caption position of a floating element should match its content. For
-figures, graphs, graphics, or similar, please us captions \emph{below} the
-imagery, as in \autoref{fig:test}. For tables, listings, algorithms, or similar list-like content, please
-use captions \emph{above} its contents, as those elements are typically read
-from top to bottom. Find examples in the listings already presented and
-\autoref{tbl:things}.
-
-For tabular content, we suggest to avoid vertical lines altogether and keep
-horizontal lines to a minimum. Refer to the \lstinline|booktabs| package
-documentation for more information~\cite{booktabs}. Also, the
-\lstinline|threeparttable| package is valuable if you need footnotes in your
-table~\cite{threeparttable}.
-
 \begin{table}
   \centering
   \begin{threeparttable}
@@ -616,8 +602,7 @@ table~\cite{threeparttable}.
       Part           & done & {Value}   & Unit                      \\
       \midrule
       Title          & yes  &    2.3456 & \dB                       \\
-      Abstract       & no   &           &                           \\
-      Intro          & yes  &       e3  & \kilo\hertz               \\
+      Abstract   &  yes  &       e3  & \kilo\hertz               \\
       \midrule
       \multicolumn{4}{c}{Rest is not entirely true}                 \\
       \midrule
@@ -637,22 +622,35 @@ table~\cite{threeparttable}.
 \end{table}
 
 
+The caption position of a floating element should match its content. For
+figures, graphs, graphics, or similar, please us captions \emph{below} the
+imagery, as in \autoref{fig:test}. For tables, listings, algorithms, or similar list-like content, please
+use captions \emph{above} its contents, as those elements are typically read
+from top to bottom. Find examples in the listings already presented and
+\autoref{tbl:things}.
+
+For tabular content, we suggest to avoid vertical lines altogether and keep
+horizontal lines to a minimum. Refer to the \lstinline|booktabs| package
+documentation for more information~\cite{booktabs}. Also, the
+\lstinline|threeparttable| package is valuable if you need footnotes in your
+table~\cite{threeparttable}.
+
+
+
 \subsection{Bibliography}
 
 As outlined, the \lstinline|programming| class supports both plain BibTeX as
 well as the newer Biblatex bibliography package to present your references.
 Please note that you may not change the bibliography style, it is pre-selected
-by the class. 
-
-Programming uses a simple, numbered bibliography scheme with all references
-sorted alphabetically, which should look like this:
-\cite{DBLP:journals/cacm/Knuth74}. Note that the reference has the \textsc{doi}
-included. We would like to encourage you to always provide the \textsc{doi}s of
-the works you cite, if possible. However, please make sure in your bibliography
-file, that the \lstinline|doi| entry a plain entry without a ``resolver'' (for
-example, \textsf{http://dx.doi.org/}) prepended. A typical example for an entry
-format should look like in \autoref{lst:bib}. Please shorten neither names nor
-journal articles, if possible.
+by the class. It is a simple, numbered style with all references sorted
+alphabetically. In text, it should look like
+this:~\cite{DBLP:journals/cacm/Knuth74}. Note that the reference has the
+\textsc{doi} included. We would like to encourage you to always provide the
+\textsc{doi}s of the works you cite, if possible. However, please make sure in
+your bibliography file, that the \lstinline|doi| entry is a plain entry without
+a ``resolver'' (for example, \textsf{http://dx.doi.org/}) prepended. A typical
+example for an entry format should look like in \autoref{lst:bib}. Please
+shorten neither names nor journal articles, if possible.
 
 The bibliography commands for your article should look like this (for Biblatex
 and plain BibTeX, respectively):\par\noindent
@@ -698,6 +696,8 @@ and plain BibTeX, respectively):\par\noindent
 
 \subsection{{LaTeX} Packages Considerations }
 \label{sec:pack-cons}
+
+
 
 The following packages are automatically loaded by the \lstinline|programming|
 class and need not to be loaded manually.
@@ -795,7 +795,8 @@ class and need not to be loaded manually.
 \item \path{zefonts}
 \end{itemize}}
 \end{multicols}
-
+%
+\noindent 
 Additionally, any package that changes the font must not be loaded.
 
 \acks

@@ -3,7 +3,7 @@
 \ProvidesClass{programming}
     [2016/08/11 v0.1 ^^J Articles for \P@banner^^J]
 
-\RequirePackage{hardwrap}
+\RequirePackage{etexcmds,hardwrap}
 \GenerateLogMacros{class}[P]{programming}
 
 \RequirePackage{etoolbox}
@@ -11,13 +11,10 @@
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
 %%
-\RequirePackage{ifthen,ifpdf,ifluatex,ifxetex,morewrites}
-\ifthenelse{\boolean{luatex}}{%
-  \IfFileExists{luatex85.sty}{\RequirePackage{luatex85}}{}
-  \RequirePackage{pdftexcmds}
-  \AfterReadingMainAux{%
-    \gdef\pdfmdfivesum file #1{\pdf@filemdfivesum{#1}}}
-}{}
+\RequirePackage{ifthen,ifpdf,ifluatex,ifxetex}
+\ifthenelse{\boolean{luatex}}%
+  {\IfFileExists{luatex85.sty}{\RequirePackage{luatex85}}{}}%
+  {}
 
 %%%%
 %% DATA
@@ -67,7 +64,8 @@
 \newbool{P@submission}
 \P@Key{phase}[final]{%
   \ifstr{#1}{final}{\boolfalse{P@submission}}{}
-  \ifstr{#1}{submission}{\booltrue{P@submission}}{}}
+  \ifstr{#1}{submission}{\booltrue{P@submission}}{}
+  \FamilyKeyStateProcessed}
 \P@StdOption{submission}{phase=submission}
 \P@StdOption{crc}{phase=final}
 
@@ -93,7 +91,7 @@
   \or \renewcommand*\P@codefont{tt}
   \or \renewcommand*\P@codefont{ttx}
   \fi
-}
+  \FamilyKeyStateProcessed}
 
 
 % for paperdetails
@@ -101,7 +99,7 @@
 \providecommand*\P@area{%
   \P@warning@noline{No area specified}%
   {\larger\textbf{No area specified. Please add a \texttt{\string\area\{...\}} before \string\maketitle.}}}
-\P@SubmissionKey{area}{\gdef\P@area{#1}}
+\P@SubmissionKey{area}{\gdef\P@area{#1}\FamilyKeyStateProcessed}
 
 \providecommand*\P@perspective{%
   \P@warning@noline{No perspective selected}%
@@ -126,7 +124,8 @@
   \or
     \renewcommand*\P@perspective{The Engineering of Programming}
   \fi
-}
+  \FamilyKeyStateProcessed}
+
 \P@StdOption{art}{perspective=art}
 \P@StdOption{theart}{perspective=theart}
 \P@StdOption{empirical}{perspective=empirical}
@@ -141,12 +140,13 @@
 \providecommand*\P@Volume{}
 \providecommand*\P@Issue{}
 \providecommand*\P@ArticleNumber{}
-\P@CRCKey{year}{\renewcommand*\P@Year{#1}\P@@DOI@Setup}
-\P@CRCKey{volume}{\renewcommand*\P@Volume{#1}\P@@DOI@Setup}
-\P@CRCKey{issue}{\renewcommand*\P@Issue{#1}\P@@DOI@Setup}
-\P@CRCKey{articlenumber}{\renewcommand*\P@ArticleNumber{#1}\P@@DOI@Setup}
-\P@CRCKey{submitted}{\DTMsavedate{P@date@submitted}{#1}}
-\P@CRCKey{published}{\DTMsavedate{P@date@published}{#1}}
+
+\P@CRCKey{year}{\renewcommand*\P@Year{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
+\P@CRCKey{volume}{\renewcommand*\P@Volume{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
+\P@CRCKey{issue}{\renewcommand*\P@Issue{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
+\P@CRCKey{articlenumber}{\renewcommand*\P@ArticleNumber{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
+\P@CRCKey{submitted}{\DTMsavedate{P@date@submitted}{#1}\FamilyKeyStateProcessed}
+\P@CRCKey{published}{\DTMsavedate{P@date@published}{#1}\FamilyKeyStateProcessed}
 
 \P@ExecuteOptions{phase=final,code=sf}
 
@@ -156,12 +156,35 @@
 %%
 
 %% CLASS LOADING
-\PassOptionsToPackage{latest}{latexrelease} 
+% \PassOptionsToPackage{latest}{latexrelease} 
 \IfFileExists{latexrelease.sty}%
-   % Hack. we want the latest, but it spits out a warning that should be an info.
-   {\bgroup\let\PackageWarningNoLine\@gobbletwo\relax
-     \RequirePackage{latexrelease}\egroup}%
+   % % Hack. we want the latest, but it spits out a warning that should be an info.
+   % {\bgroup\let\PackageWarningNoLine\@gobbletwo\relax
+   %   \RequirePackage{latexrelease}\egroup}%
+   {\PreventPackageFromLoading*[%
+     \typeout{avoid fixltx2e if it does nothing in the first place}]%
+   {fixltx2e}}
    {\RequirePackage{fixltx2e}}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fixes for intermediate versions.
+% TL 2015
+\@ifpackagelater{scrbase}{2015/09/29}%
+ {}% newer, ok
+ {\def\set@pdftextpagesize{\set@pdftexpagesize}}
+
+% TL 2016
+\@ifpackagelater{scrbase}{2015/11/22}%
+  {\@ifpackagelater{scrbase}{2016/06/09}%
+     {}% new enough, ok.
+     {% There's a bug in tocbasic that got fixed post TL2016.
+       % see https://sourceforge.net/p/koma-script/code/2475/
+       % workaround by specifying tocdepths manually.
+       \@namedef{subsectiontocdepth}{2}%
+       \@namedef{subsubsectiontocdepth}{3}%
+       \@namedef{subparagraphtocdepth}{5}}}%
+  {}% old enough, ok
 
 \LoadClass{scrartcl}
 
@@ -177,8 +200,10 @@
   headinclude=false,
   headings=normal,
   headheight=10pt,
-  numbers=noendperiod,
+  numbers=noenddot,
 }
+\AfterCalculatingTypearea{\setlength{\footheight}{16pt}}
+\AfterSettingArea{\setlength{\footheight}{16pt}}
 \AtBeginDocument{\setlength{\footskip}{12pt}}
 \KOMAoption{captions}{nooneline,tableheading}
 
@@ -272,6 +297,13 @@
   \RequirePackage{accsupp}
 }
 
+
+\RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
+\definecolor{P@Blue}{named}{RoyalBlue}
+\definecolor{P@ColorOnBlue}{gray}{.95}
+\definecolor{P@GrayFG}{named}{darkgray}
+\definecolor{P@GrayBG}{gray}{.90}
+
 \newlength{\doclicenseimagewidth}
 \setlength{\doclicenseimagewidth}{2.7cm}
 \RequirePackage[
@@ -281,11 +313,17 @@
   imagewidth=\doclicenseimagewidth,
 ]{doclicense}
 
-\RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
-\definecolor{P@Blue}{named}{RoyalBlue}
-\definecolor{P@ColorOnBlue}{gray}{.95}
-\definecolor{P@GrayFG}{named}{darkgray}
-\definecolor{P@GrayBG}{gray}{.90}
+% Fixes for intermediate versions.
+% TL 2015
+% this is actually an installation bug for TL 2015,
+% but we cannot reliably test that, so we resort to the check
+% if the package is new enough for TL 2016.
+\@ifpackagelater{doclicense}{2016/04/24}%
+  {\let\P@doclicenseImage\doclicenseImage}% we're good.
+  {\def\P@doclicenseImage{%
+      \makebox[\doclicenseimagewidth]{%
+        \setlength{\fboxsep}{5pt}%
+        \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\doclicenseIcon}}}}}
 
 \RequirePackage[tbtags,fleqn]{amsmath}
 \PassOptionsToPackage{graphicx}{final}
@@ -427,7 +465,7 @@
 
 \providecommand*\hairspace{\ifmmode\mskip1mu\else\kern0.08em\fi}
 \providecommand*\email[1]{\href{mailto:#1}{\nolinkurl{#1}}\xspace}
-\newenvironment{fullwidth}
+\newenvironment{wide}
     {\list{}{%
             \leftmargin-1.5cm
             \rightmargin\leftmargin}
@@ -461,8 +499,13 @@
         \centering
           \color{P@ColorOnBlue}\textls[120]{#2}
         }}}
-\DeclareNewLayer[
-  floatornonfloatpage,
+
+% floatornonfloatpage was introduced post-TL2015..
+\@ifpackagelater{scrbase}{2015/07/02}%
+  {\DeclareNewLayer[floatornonfloatpage]{pagemarkbase}}
+  {\DeclareNewLayer{pagemarkbase}}
+  
+\DeclareNewLayer[clone=pagemarkbase,
   voffset=1in+\topmargin+\headheight+\headsep+10\pagemarkbaselineskip,
   width=5em,
   height=2.3\pagemarkbaselineskip,
@@ -665,7 +708,7 @@
   \begin{minipage}[b][0pt][b]{\textwidth}
     \null\noindent%
     \normalfont%
-    \doclicenseImage%
+    \P@doclicenseImage%
     \hfill%
     \begin{minipage}[b]%
       {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}
