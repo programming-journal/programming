@@ -1,15 +1,14 @@
 % -*- coding: utf-8; -*-
 % vim: set fileencoding=utf-8 :
-
-%% First parameter: the language is 'english'.
-%% Second parameter: use 'submission' for initial submission and 'final' for camera-ready
 \documentclass[english,submission]{programming}
+%% First parameter: the language is 'english'.
+%% Second parameter: use 'submission' for initial submission, remove it for camera-ready (see 4.1)
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{example.bib}
 
 %
-% Packages and Commands specific to article
+% Packages and Commands specific to article (see 3)
 %
 % These ones  are used in the guide, replace with your own.
 % 
@@ -32,7 +31,7 @@
   commentstyle={\color{FireBrick}},%
   escapechar=`,}
 \newcommand*{\CTAN}[1]{\href{http://ctan.org/tex-archive/#1}{\nolinkurl{CTAN:#1}}}
-
+%%
 
 \begin{document}
 
@@ -57,12 +56,12 @@
 
 
 %%%%%%%%%%%%%%%%%%
-%% These data MUST be filled for your submission. 
+%% These data MUST be filled for your submission. (see 4.3)
 \paperdetails{
   %% perspective options are: art, sciencetheoretical, scienceempirical, engineering.
-  %% Choose exactly the one that best describes this work.
+  %% Choose exactly the one that best describes this work. (see 2.1)
   perspective=art,
-  %% State one or more areas, separated by a comma.
+  %% State one or more areas, separated by a comma. (see 2.2)
   %% Please see list of areas in http://programming-journal.org/cfp/
   %% The list is open-ended, so use other areas if yours is/are not listed.
   area={Social Coding, General-purpose programming},
@@ -71,14 +70,14 @@
 
 %%%%%%%%%%%%%%%%%%
 %% These data are provided by the editors. May be left out on submission.
-\paperdetails{
-  submitted=2016-08-10,
-  published=2016-10-11,
-  year=2016,
-  volume=1,
-  issue=1,
-  articlenumber=1,
-}
+%\paperdetails{
+%  submitted=2016-08-10,
+%  published=2016-10-11,
+%  year=2016,
+%  volume=1,
+%  issue=1,
+%  articlenumber=1,
+%}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,16 +136,15 @@
   We present this short paper as an example of, and a guide to,
   writing articles for The Art, Science, and Engineering of
   Programming journal. The complete template is provided: the style
-  file (programming.cls), an example paper (this file), and an example
-  bibliography file (example.bib).
+  file (\texttt{programming.cls}), an example paper (\texttt{example-programming.tex}, this file), and an example
+  bibliography file (\texttt{example.bib}).
 
   Much of the progress in Computer Science lies on the basis of
   computer programs, the people who write them, and the concepts and
   tools available to them to express computational tasks. The
   existence of a journal focusing on programming is of utmost
   importance for strengthening our understanding of these activities.
-
- \end{abstract}
+\end{abstract}
 
 \section{A Guided Tour}
 \label{sec:guided-tour}
@@ -331,14 +329,14 @@ To classify your work as any of the above perspectives, please set the
 one of the following values:
 
 \begin{description}
-\item[art] for submissions concerning \emph{The Art }
-  (\textsf{theart} is a proper alias);
+\item[art] for submissions concerning \emph{The Art } (\textsf{theart} is a
+  proper alias);
 \item[sciencetheoretical] For submissions concerning \emph{Science
-    (theoretical)}, with aliases \textsf{sciencetheoretical},
+    (theoretical)}, with the aliases \textsf{sciencetheoretical},
   \textsf{theoreticalscience}, \textsf{theoretical},
-  \textsf{science-theoretical}, and \textsf{theoretical-science};
+  \textsf{science-theoretical}, and finally \textsf{theoretical-science};
 \item[scienceempirical] for submissions concerning \emph{Science (empirical)},
-  aliases are \textsf{scienceempirical}, \textsf{empiricalscience},
+  the valid aliases are \textsf{scienceempirical}, \textsf{empiricalscience},
   \textsf{empirical}, \textsf{science-empirical}, and
   \textsf{empirical-science}; and
 \item[engineering] for submissions concerning \emph{Engineering}.
@@ -386,13 +384,13 @@ importantly,
 \item please do not change the font or the font size for that matter. The text
   font remains fixed as \emph{Charter} (in the XCharter variant) and emphasis
   font is \emph{Fira Sans}. The only exception is the typewriter font, where
-  you can choose from three variants (please refer to
+  you can choose from two variants (please refer to
   \autoref{sec:typewriter-fonts}). Moreover;
 \item please do not change the margins or the line spacing;
 \item please refrain from using the \lstinline|\sloppy| command, especially for
   the whole document;
 \item please avoid the use of the \lstinline|[H]| or \lstinline|[h!]| modifiers
-  for figures;
+  for figures, tables, and similar elements;
 \item please use a consistent formatting  (for example, use the
   \lstinline|siunitx| package~\cite{siunitx}.)
 \end{itemize}
@@ -535,6 +533,8 @@ ways to specify affiliations\,/\,Author information example\,/\,Sample publicati
 \affiliation[a]{The Unseen University, Ankh-Morpork}
 \affiliation[b]{Carolingian Minuschool Academy, Bodoni, San Serriffe}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Author information`\label{l:authorinfo}`
 \author{Anna Author}
 \authorinfo[anna]{is a researcher at the Unseen University in Ankh-Morpork and
@@ -543,7 +543,9 @@ a Ph\,D student to Rincewind. Contact her at
 \affiliation[a]{The Unseen University, Ankh-Morpork}
 
 
-%%%%%%%%%% Sample publication paper details
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Sample publication paper details
 \paperdetails{
   submitted=2017-02-18,
   published=2017-08-01,
