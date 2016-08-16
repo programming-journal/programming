@@ -1,5 +1,8 @@
 % -*- coding: utf-8; -*-
 % vim: set fileencoding=utf-8 :
+
+%% First parameter: the language is 'english'.
+%% Second parameter: use 'submission' for initial submission and 'final' for camera-ready
 \documentclass[english,submission]{programming}
 
 \usepackage[backend=biber]{biblatex}
@@ -54,15 +57,20 @@
 
 
 %%%%%%%%%%%%%%%%%%
-%% These data must be filled for your submission. May be left out in final version
+%% These data MUST be filled for your submission. 
 \paperdetails{
-  area={Social Coding},
+  %% perspective options are: art, sciencetheoretical, scienceempirical, engineering.
+  %% Choose exactly the one that best describes this work.
   perspective=art,
+  %% State one or more areas, separated by a comma.
+  %% Please see list of areas in http://programming-journal.org/cfp/
+  %% The list is open-ended, so use other areas if yours is/are not listed.
+  area={Social Coding, General-purpose programming},
 }
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
-%% These data are provided by the editors. May be left out on submission
+%% These data are provided by the editors. May be left out on submission.
 \paperdetails{
   submitted=2016-08-10,
   published=2016-10-11,
@@ -101,26 +109,43 @@
 \maketitle
 
 % Please always include the abstract.
+% The abstract MUST be written accorging to the directives stated in 
+% http://programming-journal.org/submission/
+% Failure to adhere to the abstract directives may result in the paper
+% being returned to the authors.
 \begin{abstract}
-  The Art, Science, and Engineering of Programming is a new journal created
-  with the goal of placing the wonderful art of programming in the map of
-  scholarly works. Many academic journals and conferences exist that publish
+  Many academic journals and conferences exist that publish
   research related to programming, starting with programming languages,
   software engineering, and expanding to the whole Computer Science field. Yet,
   many of us feel that, as the field of Computer Science expanded, programming,
   in itself, has been neglected to a secondary role not worthy of scholarly
-  attention. That is a serious gap, as much of the progress in Computer Science
-  lies on the basis of computer programs, the people who write them, and the
-  concepts and tools available to them to express computational tasks.
+  attention. 
 
-  The Art, Science, and Engineering of Programming aims at closing this gap by
-  focusing primarily on programming: the art itself (programming styles,
+  We posit that a scholarly journal focusing primarily on programming
+  will help close this gap, and foster a more meaningful bridge
+  between research and the practice of software development.
+
+  The Art, Science, and Engineering of Programming accepts papers
+  under several perspectives: the art itself (programming styles,
   pearls, models, languages), the emerging science of understanding what works
   and what doesn’t work in general and in specific contexts, as well as more
   established engineering and mathematical perspectives.
   
-  This is an example of and a guide to writing articles for The Art, Science,
-  and Engineering of Programming.
+  This journal aims at placing the wonderful art of programming in the
+  map of scholarly works. 
+
+  We present this short paper as an example of, and a guide to,
+  writing articles for The Art, Science, and Engineering of
+  Programming journal. The complete template is provided: the style
+  file (programming.cls), an example paper (this file), and an example
+  bibliography file (example.bib).
+
+  Much of the progress in Computer Science lies on the basis of
+  computer programs, the people who write them, and the concepts and
+  tools available to them to express computational tasks. The
+  existence of a journal focusing on programming is of utmost
+  importance for strengthening our understanding of these activities.
+
  \end{abstract}
 
 \section{A Guided Tour}
