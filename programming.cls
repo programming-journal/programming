@@ -578,23 +578,27 @@
 
 \newcommand*\P@author@link[1]{%
   \texorpdfstring%
-    {\hyperlink{P:authorinfo:#1}{#1}}%
+    {\hyperlink{P:authorinfo:\detokenize{#1}}{#1}}%
     {#1}}%
 
-\renewcommand*\author[2][]{%
-  \begingroup
-  \def\@tempa{#1}
-  \ifdefempty{\@tempa}{%
-    \addtocounter{P@affiliations}{1}%
-    \edef\@tempa{\alph{P@affiliations}}%
-    \addtocounter{P@affiliations}{-1}}{}%
-  \xdef\P@last@author{#2}
-  \listxadd\P@authors{%
-    \noexpand\P@author@link{#2}\ignorespaces%
-    \noexpand\P@affil{\@tempa}}%
+\newcommand*\P@author@[2][]{%
+  \gdef\P@last@author{#2}%
+  \listgadd\P@authors{%
+    \P@author@link{#2}\ignorespaces%
+    \P@affil{#1}}%
   \stepcounter{P@authors}%
   \P@author@serialize%
-  \endgroup}
+}
+\newcommand*\P@author@@{%
+  \addtocounter{P@affiliations}{1}%
+  \edef\@tempa{\alph{P@affiliations}}%
+  \addtocounter{P@affiliations}{-1}%
+  \P@author@[\@tempa]}
+
+\renewcommand*\author{%
+  \@ifnextchar[ %]
+  \P@author@%
+  \P@author@@}
 
 % Long.
 \newcommand\authorinfo[2][]{%
@@ -615,7 +619,7 @@
     \setlength\parindent\P@current@parindent
     \vspace*{0pt}%
     \noindent%
-    \strut\hypertarget{P:authorinfo:#1}{\textbf{#1}}\space\ignorespaces #3\par
+    \strut\hypertarget{P:authorinfo:\detokenize{#1}}{\textbf{#1}}\space\ignorespaces #3\par
   \end{minipage}%
   \hspace*{1.5\columnsep}%
   \begin{minipage}[t]{\P@authorinfo@imagewidth}%
