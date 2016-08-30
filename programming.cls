@@ -593,7 +593,7 @@
   \addtocounter{P@affiliations}{1}%
   \edef\@tempa{\alph{P@affiliations}}%
   \addtocounter{P@affiliations}{-1}%
-  \P@author@[\@tempa]}
+  \expandafter\P@author@\expandafter[\@tempa]}
 
 \renewcommand*\author{%
   \@ifnextchar[ %]
