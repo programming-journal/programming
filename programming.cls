@@ -13,7 +13,12 @@
 %%
 \RequirePackage{ifthen,ifpdf,ifluatex,ifxetex}
 \ifthenelse{\boolean{luatex}}%
-  {\IfFileExists{luatex85.sty}{\RequirePackage{luatex85}}{}}%
+  {\IfFileExists{luatex85.sty}%
+    {\RequirePackage{luatex85}
+      \@ifpackagelater{luatex85}{2016/06/15}%
+        {}% creationdate-problem fixed
+        {{\outputmode=1 \xdef\pdfcreationdate{\pdffeedback creationdate}}}}
+    {}}%
   {}
 
 %%%%
