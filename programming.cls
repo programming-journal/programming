@@ -287,6 +287,7 @@
   \DeclareUrlCommand\path{}% fool emacs: }
 }
 
+\PassOptionsToPackage{log-declarations=false}{xparse}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{all}{hypcap}
 \PassOptionsToPackage{%
