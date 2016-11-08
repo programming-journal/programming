@@ -221,7 +221,8 @@
 
 \RequirePackage[LGR,OT1,LY1,T1]{fontenc}
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}{}{%
-  \RequirePackage[utf8]{inputenc}
+  \RequirePackage[utf8]{inputenx}
+  \input{ix-utf8enc.dfu}
   \RequirePackage{alphabeta}}
 \RequirePackage{textcomp,textcase,relsize}
 
