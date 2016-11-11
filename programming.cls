@@ -823,6 +823,7 @@
   \usekomafont{abstract}
   \noindent\ignorespaces%
 }{%
+  \par
   \begingroup
   \raggedright
   \ifcsvoid{@ACMccs}{}{%
