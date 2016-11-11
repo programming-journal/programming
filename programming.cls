@@ -204,18 +204,24 @@
   footinclude=false,
   headinclude=false,
   headings=normal,
-  headheight=10pt,
   numbers=noenddot,
 }
-\AfterCalculatingTypearea{\setlength{\footheight}{16pt}}
-\AfterSettingArea{\setlength{\footheight}{16pt}}
-\AtBeginDocument{\setlength{\footskip}{12pt}}
 \KOMAoption{captions}{nooneline,tableheading}
 
-\AtEndPreamble{
-  \areaset[current]{\textwidth}{1.61803399\textwidth}
-  \addtolength{\topmargin}{\dimexpr \headsep + \headheight\relax}
-  \addtolength{\marginparwidth}{-1.5em}}
+\newcommand*\P@settopbottommargins{%
+  \setlength{\topmargin}{-15pt}%
+  \setlength{\headsep}{20pt}%
+  \setlength{\headheight}{17pt}%
+  \setlength{\footheight}{\headheight}%
+  \setlength{\footskip}{49pt}%
+  \setlength{\marginparpush}{6pt}%
+  \setlength{\marginparwidth}{48pt}%
+}  
+\AfterCalculatingTypearea{\P@settopbottommargins}
+\AfterSettingArea{\P@settopbottommargins}
+
+
+\AtEndPreamble{\areaset[current]{\textwidth}{1.61803399\textwidth}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -232,8 +238,8 @@
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
   {\RequirePackage{fontspec}[2013/05/20]
     \ifthenelse{\boolean{xetex}}%
-      {\setmainfont[SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
-      {\setmainfont{XCharter}\relax}
+      {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
+      {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
     \def\P@fontscale{MatchLowercase}}%
   {\RequirePackage[osf,sups]{XCharter}
     \def\P@fontscale{.92}}
@@ -537,6 +543,13 @@
 
 \AddLayersToPageStyle{@everystyle@}{pagemarkodd,pagemarkeven}
 
+\AtBeginDocument{%
+  \setlength{\pagemarkbaselineskip}{\baselineskip}
+  \ModifyLayer[%
+    voffset=1in+\topmargin+\headheight+\headsep+10\pagemarkbaselineskip,
+    height=2.3\pagemarkbaselineskip
+  ]{pagemarkall}}
+
 \RequirePackage{comment}
 \excludecomment{CCSXML}
 
@@ -725,7 +738,8 @@
     \P@doclicenseImage%
     \hfill%
     \begin{minipage}[b]%
-      {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}
+      {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
+      \ignorespaces
       \scriptsize%
       \textcopyright\ {\@author}\\
       \doclicenseText\\
@@ -812,7 +826,11 @@
     {\P@headersection{Digital Object Identifier}
     \href{http://dx.doi.org/\P@DOI}{\P@DOI}}}%
   \vfill%
-  \noindent\begin{minipage}[t][10\baselineskip]{\linewidth}\vspace*{0pt}
+  \noindent\begin{minipage}[t][7\baselineskip]{\linewidth}\vspace*{0pt}
+    \ifthenelse{\value{page} > 1}{\P@warning{%
+        Your abstract seems to extend over the first page. Please consider
+        adding \string\smaller\ right after \string\begin{abstract}.
+      }}{}%
   {\microtypesetup{activate=false}%
     \Large\selectfont \P@banner\par}
   {\color{P@Blue}\rule{\linewidth}{.5\baselineskip}\par}
