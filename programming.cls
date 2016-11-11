@@ -342,8 +342,17 @@
         \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\doclicenseIcon}}}}}
 
 \RequirePackage[tbtags,fleqn]{amsmath}
-\PassOptionsToPackage{graphicx}{final}
-\RequirePackage{graphicx}
+\PassOptionsToPackage{final}{graphicx}
+\RequirePackage{graphicx,grffile,grfext}
+% ai's are just pdfs.
+\ifthenelse{\boolean{xetex}}{
+  \DeclareGraphicsRule{.ai}{QTm}{*}{}
+}{
+  \DeclareGraphicsRule{.ai}{pdf}{*}{}
+  \pdfpagebox=5
+}
+\AppendGraphicsExtensions{.ai,.AI}
+
 \RequirePackage{multirow,tabularx,booktabs,threeparttable}
 \RequirePackage[figuresright]{rotating}
 \RequirePackage{caption,subcaption} % subfig
