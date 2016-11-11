@@ -344,6 +344,8 @@
 \RequirePackage[tbtags,fleqn]{amsmath}
 \PassOptionsToPackage{final}{graphicx}
 \RequirePackage{graphicx,grffile,grfext}
+% prefer pdf over png
+\PrependGraphicsExtensions{.pdf,.PDF}
 % ai's are just pdfs.
 \ifthenelse{\boolean{xetex}}{
   \DeclareGraphicsRule{.ai}{QTm}{*}{}
