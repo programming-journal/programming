@@ -417,10 +417,11 @@
   \setcounter{biburlucpenalty}{8000}
   \ExecuteBibliographyOptions{
     url=true,%
-    urldate=iso8601,%
     abbreviate=false,%
-    maxnames=20,%
-  }
+    maxnames=20}
+  \@ifpackagelater{biblatex}{2016-09-10}%
+    {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}%
+    {\ExecuteBibliographyOptions{urldate=iso8601}}
   \PreventPackageFromLoading[\message{%
     ^^J^^JERROR: You tried to load  the cite package that is not compatible
     with biblatex.^^J^^J%
