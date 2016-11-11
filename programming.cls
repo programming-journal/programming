@@ -760,7 +760,7 @@
           \ifcsvoid{P@Year}{}{, \P@Year\ignorespaces}%
           \ifcsvoid{P@ArticleNumber}%
           {, pages \P@firstpage--\P@lastpage}%
-          {, pages \P@ArticleNumber\P@pagemarkseparator\P@firstpage--\P@ArticleNumber\P@pagemarkseparator\P@lastpage}.}
+          {, pages \P@ArticleNumber\P@pagemarkseparator\P@firstpage--\P@lastpage}.}
     \end{minipage}%
   \end{minipage}
 }{}
