@@ -816,7 +816,7 @@
 \newcommand*\P@headersection[1]{%
   \par\vspace*{.5\baselineskip}%
   \footnotesize\sffamily%
-  \noindent{\bfseries\sffamily\color{P@GrayFG} #1}\enspace}
+  \noindent{\bfseries\color{P@GrayFG} #1}\enspace}
 
 \newkomafont{abstract}{\small}
 \renewenvironment{abstract}{%
