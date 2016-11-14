@@ -242,7 +242,7 @@
       {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
       {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
     \def\P@fontscale{MatchLowercase}}%
-  {\RequirePackage[osf,sups]{XCharter}
+  {\RequirePackage[osfI,sups]{XCharter}
     \def\P@fontscale{.92}}
 \linespread{1.05}
 \RequirePackage[scaled=\P@fontscale,semibold]{FiraSans}
