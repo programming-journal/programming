@@ -383,9 +383,8 @@
 \RequirePackage{listings}
 \lstset{%
   basicstyle=\small\ttfamily,%
-  % basicstyle=\small\ttfamily,%
   columns=fullflexible,
-  inputencoding=utf8,
+  extendedchars=true,
   upquote=true,
   captionpos=t,
   backgroundcolor=\color{P@GrayBG},%
@@ -394,7 +393,8 @@
   numbers=left,
   numberstyle=\P@listingnumbersfont,
   numbersep=.5em,
-  frame=single,framerule=0pt}
+  frame=single,
+  framerule=0pt}
 \lst@AddToHook{FontAdjust}{\P@CodeSetup}
 \lst@AddToHook{DisplayStyle}{\def\baselinestretch{1}\@currsize}
 \lst@AddToHook{TextStyle}{\lstset{breaklines=false}}
