@@ -244,13 +244,13 @@
     \def\P@fontscale{MatchLowercase}}%
   {\RequirePackage[osfI,sups]{XCharter}
     \def\P@fontscale{.92}}
-\linespread{1.05}
 \RequirePackage[scaled=\P@fontscale,semibold]{FiraSans}
 \ifdefstring{\P@codefont}{sf}%
  {\global\let\ttfamily\sffamily}
  {\ifdefstring{\P@codefont}{tt}%
    {\RequirePackage[scaled=\P@fontscale,lining,nomap]{FiraMono}}
    {}}
+\linespread{1.05}
 
 \defcaptionname{english}{\figureautorefname}{figure}
 \defcaptionname{english}{\figureautorefname}{figure}
