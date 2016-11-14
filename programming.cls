@@ -224,6 +224,7 @@
 \AtEndPreamble{\areaset[current]{\textwidth}{1.61803399\textwidth}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{babel}
 
 \RequirePackage[LGR,OT1,LY1,T1]{fontenc}
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}{}{%
@@ -251,7 +252,6 @@
    {\RequirePackage[scaled=\P@fontscale,lining,nomap]{FiraMono}}
    {}}
 
-\RequirePackage{babel}
 \defcaptionname{english}{\figureautorefname}{figure}
 \defcaptionname{english}{\figureautorefname}{figure}
 \defcaptionname{english}{\tableautorefname}{table}
