@@ -516,8 +516,8 @@
 \clearpairofpagestyles
 
 
-\newlength{\pagemarkbaselineskip}
-\setlength{\pagemarkbaselineskip}{\baselineskip}
+\newlength{\P@corebaselineskip}
+\setlength{\P@corebaselineskip}{\baselineskip}
 \newcommand*\P@pagemarkseparator{-}
 
 \newcommand*\pagemarkbox[2][P@Blue]{%
@@ -534,9 +534,9 @@
   {\DeclareNewLayer{pagemarkbase}}
   
 \DeclareNewLayer[clone=pagemarkbase,
-  voffset=1in+\topmargin+\headheight+\headsep+10\pagemarkbaselineskip,
+  voffset=1in+\topmargin+\headheight+\headsep+10\P@corebaselineskip,
   width=5em,
-  height=2.3\pagemarkbaselineskip,
+  height=2.3\P@corebaselineskip,
   contents={\pagemarkbox{%
       \ifdefvoid\P@ArticleNumber{}{%
       \usekomafont{pagenumber}\P@ArticleNumber\P@pagemarkseparator}%
@@ -556,10 +556,10 @@
 \AddLayersToPageStyle{@everystyle@}{pagemarkodd,pagemarkeven}
 
 \AtBeginDocument{%
-  \setlength{\pagemarkbaselineskip}{\baselineskip}
+  \setlength{\P@corebaselineskip}{\baselineskip}
   \ModifyLayer[%
-    voffset=1in+\topmargin+\headheight+\headsep+10\pagemarkbaselineskip,
-    height=2.3\pagemarkbaselineskip
+    voffset=1in+\topmargin+\headheight+\headsep+10\P@corebaselineskip,
+    height=2.3\P@corebaselineskip
   ]{pagemarkall}}
 
 \RequirePackage{comment}
@@ -839,14 +839,15 @@
     {\P@headersection{Digital Object Identifier}
     \href{http://dx.doi.org/\P@DOI}{\P@DOI}}}%
   \vfill%
-  \noindent\begin{minipage}[t][7\baselineskip]{\linewidth}\vspace*{0pt}
+  \noindent\null\begin{minipage}[t][7\P@corebaselineskip]{\linewidth}{}%
+    \vspace*{0pt}%
     \ifthenelse{\value{page} > 1}{\P@warning{%
         Your abstract seems to extend over the first page. Please consider
         adding \string\smaller\ right after \string\begin{abstract}.
       }}{}%
   {\microtypesetup{activate=false}%
     \Large\selectfont \P@banner\par}
-  {\color{P@Blue}\rule{\linewidth}{.5\baselineskip}\par}
+  {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}
     \ifthenelse{\boolean{P@submission}}{%
       {{\P@headersection{Perspective}}{\large\P@perspective}}%
       {{\P@headersection{Area of Submission}}{\large\P@area}}%
