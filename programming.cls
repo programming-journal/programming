@@ -249,7 +249,31 @@
 
 %%% Clashes with mathdesign
 \PreventPackageFromLoading{amssymb,amsfont}
+%
+% Mathdesign spuriously redefines things it should not. {{{
+\csedef{P@MDback@fboxrule}{\the\fboxrule}
+\csedef{P@MDback@fboxsep}{\the\fboxsep}
+\csedef{P@MDback@arrayrulewidth}{\the\arrayrulewidth}
+\cslet{P@MDback@bfdefault}{\bfdefault}
+\cslet{P@MDback@footnoterule}{\footnoterule}
+\cslet{P@MDback@hrulefill}{\hrulefill}
+%
 \RequirePackage[charter,expert]{mathdesign}
+%
+\setlength{\fboxrule}{\csuse{P@MDback@fboxrule}}
+\setlength{\fboxsep}{\csuse{P@MDback@fboxsep}}
+\setlength{\arrayrulewidth}{\csuse{P@MDback@arrayrulewidth}}
+\letcs{\bfdefault}{P@MDback@bfdefault}
+\letcs{\footnoterule}{P@MDback@footnoterule}
+\letcs{\hrulefill}{P@MDback@hrulefill}
+% cleanup
+\csundef{P@MDback@fboxrule}
+\csundef{P@MDback@fboxsep}
+\csundef{P@MDback@arrayrulewidth}
+\csundef{P@MDback@bfdefault}
+\csundef{P@MDback@footnoterule}
+\csundef{P@MDback@hrulefill}
+% }}}
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
   {\RequirePackage{fontspec}[2013/05/20]
     \ifthenelse{\boolean{xetex}}%
