@@ -787,10 +787,11 @@
   \normalfont%
   \raggedright%
   {\usekomafont{title}\@title\par}%
-  \vskip\baselineskip%
   \ifdefvoid\@subtitle{}{%
-    {\usekomafont{subtitle}\@subtitle \par}%
-    \vskip\baselineskip}%
+    {\usekomafont{subtitle}\selectfont%
+      \vskip .5\baselineskip%
+      \@subtitle \par}}
+  \vskip\baselineskip%
   %
   {\let\P@affil\textsuperscript
     \usekomafont{author}\@author \par}
