@@ -1,9 +1,23 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
-\ProvidesClass{programming}
+\ProvidesClass{programming}%
     [2016/08/11 v0.1 ^^J Articles for \P@banner^^J]
 
-\RequirePackage{etexcmds,hardwrap}
+
+%%
+% `ifplatform` raises a confusing warning when an info would suffice.
+% We hack the warning out to not confuse users.
+% begin: hack
+\RequirePackage{infwarerr}
+\let\P@PWNL\PackageWarningNoLine\relax%
+\long\def\PackageWarningNoLine#1#2{%
+  \def\tempa{ifplatform}\def\tempb{#1}%
+  \ifx\tempa\tempb\@PackageInfoNoLine{#1}{#2}%
+  \else\@PackageWarningNoLine{#1}{#2}\fi}%
+\RequirePackage{hardwrap}
+\let\PackageWarningNoLine\P@PWNL\relax%
+% end: hack
+
 \GenerateLogMacros{class}[P]{programming}
 
 \RequirePackage{etoolbox}
