@@ -486,7 +486,6 @@
 \RequirePackage{scrhack}
 
 \setkomafont{pageheadfoot}{\firamedium}
-\setkomafont{pagenumber}{\large\firamedium}
 
 \newkomafont{listlabel}{\sffamily\mdseries\color{P@GrayFG}}
 \addtokomafont{descriptionlabel}{\sffamily\color{P@GrayFG}}
@@ -559,47 +558,9 @@
 \setlength{\P@corebaselineskip}{\baselineskip}
 \newcommand*\P@pagemarkseparator{-}
 
-\newcommand*\pagemarkbox[2][P@Blue]{%
-    \setlength{\fboxsep}{0pt}%
-    \colorbox{#1}{%
-      \parbox[c][\layerheight][c]{\layerwidth}{
-        \centering
-          \color{P@ColorOnBlue}\textls[120]{#2}
-        }}}
-
-% floatornonfloatpage was introduced post-TL2015..
-\@ifpackagelater{scrbase}{2015/07/02}%
-  {\DeclareNewLayer[floatornonfloatpage]{pagemarkbase}}
-  {\DeclareNewLayer{pagemarkbase}}
-  
-\DeclareNewLayer[clone=pagemarkbase,
-  voffset=1in+\topmargin+\headheight+\headsep+10\P@corebaselineskip,
-  width=5em,
-  height=2.3\P@corebaselineskip,
-  contents={\pagemarkbox{%
-      \ifdefvoid\P@ArticleNumber{}{%
-      \usekomafont{pagenumber}\P@ArticleNumber\P@pagemarkseparator}%
-      \pagemark}}
-]{pagemarkall}
-\DeclareNewLayer[clone=pagemarkall,
-  evenpage,
-  align=tl,
-  hoffset=0pt,
-]{pagemarkeven}
-\DeclareNewLayer[clone=pagemarkall,
-  oddpage,
-  hoffset=\paperwidth,
-  align=tr,
-]{pagemarkodd}
-
-\AddLayersToPageStyle{@everystyle@}{pagemarkodd,pagemarkeven}
 
 \AtBeginDocument{%
-  \setlength{\P@corebaselineskip}{\baselineskip}
-  \ModifyLayer[%
-    voffset=1in+\topmargin+\headheight+\headsep+10\P@corebaselineskip,
-    height=2.3\P@corebaselineskip
-  ]{pagemarkall}}
+  \setlength{\P@corebaselineskip}{\baselineskip}}
 
 \RequirePackage{comment}
 \excludecomment{CCSXML}
@@ -775,6 +736,12 @@
 \providecommand*\@titlerunning{\@title}
 \rohead{\usekomafont{pageheadfoot}\@authorrunning}
 \lehead{\usekomafont{pageheadfoot}\@titlerunning}
+\setkomafont{pagenumber}{\firamedium}
+\cfoot{%
+  \ifdefvoid\P@ArticleNumber{}{%
+    \usekomafont{pagenumber}\mdseries\P@ArticleNumber\P@pagemarkseparator}%
+  \pagemark}
+
 
 %%
 %%
