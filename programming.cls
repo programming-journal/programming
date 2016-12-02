@@ -478,6 +478,7 @@
 \setlength{\skip\footins}{2\baselineskip}
 \setlength{\footskip}{0pt}
 \addtokomafont{footnote}{\small}
+\deffootnote[1em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\,}
 \RequirePackage{fnpct}
 \setfnpct{after-punct-space={-.2em}}
 
