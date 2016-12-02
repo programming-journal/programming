@@ -837,7 +837,8 @@
     \P@keywords}}%
   \ifcsvoid{P@DOI}{}{%
     {\P@headersection{Digital Object Identifier}
-    \href{http://dx.doi.org/\P@DOI}{\P@DOI}}}%
+      \href{http://dx.doi.org/\P@DOI}{\P@DOI}}}%
+  \par%
   \vfill%
   \noindent\null\begin{minipage}[t][7\P@corebaselineskip]{\linewidth}{}%
     \vspace*{0pt}%
@@ -849,18 +850,19 @@
     \Large\selectfont \P@banner\par}
   {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}
     \ifthenelse{\boolean{P@submission}}{%
-      {{\P@headersection{Perspective}}{\large\P@perspective}}%
-      {{\P@headersection{Area of Submission}}{\large\P@area}}%
+      {{\P@headersection{Perspective}}{\large\P@perspective}}\strut%
+      {{\P@headersection{Area of Submission}}{\large\P@area}}\strut%
     }{%
       \DTMifsaveddate{P@date@submitted}{%
         {{\P@headersection{Submitted}
-            \DTMUsedate{P@date@submitted}}}}{}%
+            \DTMUsedate{P@date@submitted}}}}{}\strut%
       \DTMifsaveddate{P@date@published}{%
         {{\P@headersection{\rlap{Published}\phantom{Submitted}}
-            \DTMUsedate{P@date@published}}}}{}%
-    }
+            \DTMUsedate{P@date@published}}}}{}\strut%
+    }\par
+    \vfill
   \end{minipage}
-  \setlength{\skip\footins}{.5\baselineskip}
+  % \setlength{\skip\footins}{.5\baselineskip}
   \endgroup
   \endgroup
   \clearpage
