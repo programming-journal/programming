@@ -846,13 +846,5 @@
 \tolerance=100
 \emergencystretch=2pt
 
-% Set the creator tool, so that arXiv doesn't complain
-\AtBeginDocument{
-	\hypersetup{%
-		pdfcreator = {programming},
-		pdfproducer = {programming},
-	}
-}
-
 \endinput
 % EOF
