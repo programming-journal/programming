@@ -159,7 +159,7 @@ papers for The Art, Science, and Engineering of Programming should adhere to a
 common style, which is achieved with the \lstinline|programming| {LaTeX}
 class. You are to use this class as outlined here when submitting articles to
 the journal. This document acts as an example of what this can look like and a
-short references for all the required and optional parts.
+short references for all its parts.
 
 \subsection{Document Parts}
 \label{sec:document-parts}
@@ -216,8 +216,7 @@ I want to thank ....
 
 {\lstset{language=}%
   We have included a most minimal article in \autoref{lst:tour} that you can
-  adapt to the concrete work to be submitted\footnote{Please note that all
-    article source must be \textsc{utf-8} encoded, no exceptions.}. First, you
+  adapt to the concrete work to be submitted. First, you
   have to select the \lstinline|programming| class as in \autoref{l:doc}. The
   parameter \lstinline|english| is for language selection (optional, but
   recommended). The other parameter, \lstinline|submission|, is crucial for the
@@ -229,12 +228,11 @@ I want to thank ....
   \textsc{url}s and \textsc{doi}s better. In both cases, we have preloaded a
   bibliography style.
 
-At that point, you can load any {LaTeX} package you need. Note that we
-already load some important packages with the \lstinline|programming| class and
-that there are certain packages that are not recommended or incompatible with
-this class. Please refer to \autoref{sec:pack-cons} for information on which
-packages are recommended.
-After that, you start the actual document with \lstinline|\begin{document}|.
+  At that point, you can load necessary {LaTeX} packages. We already load some
+  important packages with the \lstinline|programming| class and that there are
+  certain packages that are not recommended or incompatible with this class.
+  Refer to \autoref{sec:pack-cons} for which packages are recommended. The you
+  start the document with \lstinline|\begin{document}|.
 
   You have to provide details to your submission that will be used during the
   review process. For that, use the \lstinline|paperdetails| command and
@@ -267,10 +265,7 @@ environment and several \lstinline|\ccsdesc| commands, as in lines
 With \lstinline|\maketitle| and the \lstinline|abstract| environment, you can
 produce the article's title page. Then you can start with your content. If
 applicable, you can put acknowledgements at the end after an \lstinline|\acks|
-command, as in \autoref{l:acks}.
-}
-
-This should cover the basic usage.
+command, as in \autoref{l:acks}.}
 
 \subsection{Running {LaTeX}}
 \label{sec:running}
@@ -447,10 +442,13 @@ Regarding the LaTeX system, please keep in mind to
   \textsc{pdf} files preferred;
 \item minimize the use of LaTeX comments, especially via block constructs;
 \item consult the \emph{l2tabu} documentation~\cite{l2tabu} about outdated packages;
-\item provide \textsc{doi}s for all your references, if possible.
+\item provide \textsc{doi}s for all your references, unless inaccessible.
 \end{itemize}
 %
 We suggest the use of a spellchecker to avoid typos.
+
+Please note that all article source must be \textsc{utf-8} encoded, no
+exceptions.
 
 \section{Detailed Reference}
 
@@ -607,7 +605,7 @@ includes the following information:
 \item[articlenumber] The number of the article within the volume.
 \item[submitted] The date the article was submitted to (and received by) the
   publisher. Please use an \textsc{iso} date (\textsc{yyyy-mm-dd}).
-\item[publisher] The date the article was published and made public by the
+\item[published] The date the article was published and made public by the
   publisher. Please use an \textsc{iso} date (\textsc{yyyy-mm-dd}).
 \end{description}
 %
@@ -627,37 +625,13 @@ graphics \emph{without} a \lstinline|\begin{figrue}...\end{figure}| environment
 or use a \lstinline|\begin{tabular}...\end{tabular}| \emph{without} an
 enclosing \lstinline|\begin{table}...\end{table}|.
 
-
-\begin{figure}
-  \centering
-  \setlength{\unitlength}{.01in}%{.025in}
-  \begin{picture}(200,75)
-    \put(0,25){\vector(1,0){200}}
-    \put(25,0){\vector(0,1){75}}
-    \put(75,22){\line(0,1){6}}
-    \put(125,22){\line(0,1){6}}
-    \put(22,50){\line(1,0){6}}
-    \thicklines
-    \put(25,25){\line(1,0){50}}
-    \put(75,50){\line(1,0){50}}
-    \put(125,25){\line(1,0){72}}
-    \put(17,50){\makebox(0,0){$1$}}
-    \put(75,13){\makebox(0,0)[b]{$\pi$}}
-    \put(125,13){\makebox(0,0)[b]{$2\pi$}}
-    \put(195,13){\makebox(0,0)[b]{$t$}}
-    \put(175,60){\makebox(0,0){$g(t)$}}
-  \end{picture}
-  \caption{A test figure}
-  \label{fig:test}
-\end{figure}
-
 \begin{table}
   \centering
   \caption{Differences between things projected and things achieved}
   \label{tbl:things}
   \begin{threeparttable}
-    \small
-    \begin{tabular}{>{}p{.4\linewidth}@{}cSs}
+    \footnotesize
+    \begin{tabular}{>{}p{.33\linewidth}@{}cSs}
       \toprule
       Part           & done & {Value}   & Unit                      \\
       \midrule
@@ -682,19 +656,42 @@ enclosing \lstinline|\begin{table}...\end{table}|.
 \end{table}
 
 
+\begin{figure}[b]
+  \centering
+  \setlength{\unitlength}{.01in}%{.025in}
+  \begin{picture}(200,75)
+    \put(0,25){\vector(1,0){200}}
+    \put(25,0){\vector(0,1){75}}
+    \put(75,22){\line(0,1){6}}
+    \put(125,22){\line(0,1){6}}
+    \put(22,50){\line(1,0){6}}
+    \thicklines
+    \put(25,25){\line(1,0){50}}
+    \put(75,50){\line(1,0){50}}
+    \put(125,25){\line(1,0){72}}
+    \put(17,50){\makebox(0,0){$1$}}
+    \put(75,13){\makebox(0,0)[b]{$\pi$}}
+    \put(125,13){\makebox(0,0)[b]{$2\pi$}}
+    \put(195,13){\makebox(0,0)[b]{$t$}}
+    \put(175,60){\makebox(0,0){$g(t)$}}
+  \end{picture}
+  \caption{A test figure}
+  \label{fig:test}
+\end{figure}
+
+
 The caption position of a floating element should match its content. For
-figures, graphs, graphics, or similar, please us captions \emph{below} the
-imagery, as in \autoref{fig:test}. For tables, listings, algorithms, or similar list-like content, please
-use captions \emph{above} its contents, as those elements are typically read
-from top to bottom. Find examples in the listings already presented and
-\autoref{tbl:things}.
+tables, listings, algorithms, or similar list-like content, please use captions
+\emph{above} its contents, as those elements are typically read from top to
+bottom. Find examples in the listings already presented and
+\autoref{tbl:things}. For figures, graphs, graphics, or similar, please us
+captions \emph{below} the imagery, as in \autoref{fig:test}.
 
 For tabular content, we suggest to avoid vertical lines altogether and keep
 horizontal lines to a minimum. Refer to the \lstinline|booktabs| package
 documentation for more information~\cite{booktabs}. Also, the
 \lstinline|threeparttable| package is valuable if you need footnotes in your
 table~\cite{threeparttable}.
-
 
 
 \subsection{Bibliography}
@@ -713,7 +710,7 @@ example for an entry format should look like in \autoref{lst:bib}. Please
 shorten neither names nor journal articles, if possible.
 
 The bibliography commands for your article should look like this (for Biblatex
-and plain BibTeX, respectively):\par\noindent
+and plain BibTeX, respectively):\\*
 \begin{minipage}[t]{.45\linewidth}
 \emph{Biblatex}
 \begin{lstlisting}
@@ -762,7 +759,7 @@ and plain BibTeX, respectively):\par\noindent
 The following packages are automatically loaded by the \lstinline|programming|
 class and need not to be loaded manually.
 
-\begin{multicols}{3}
+\begin{multicols}{4}
 {\color{DarkGreen}
 \begin{itemize}
 \item \path{accsupp}
@@ -781,7 +778,7 @@ class and need not to be loaded manually.
 \item \path{expl3}
 \item \path{FiraSans}
 \item \path{fnpct}
-\item \path{fontspec}\footnote{LuaLaTeX\,/\,XeLaTeX only}
+\item \path{fontspec}
 \item \path{fontenc}
 \item \path{gettitlestring}
 \item \path{graphics}
@@ -815,7 +812,7 @@ class and need not to be loaded manually.
 
 \par\noindent The following packages \emph{must not} be loaded.
 
-\begin{multicols}{3}
+\begin{multicols}{4}
 {\color{DarkRed}
 \begin{itemize}
 \item \path{SIstyle}
