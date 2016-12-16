@@ -870,6 +870,91 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum. 
 
+\section{Submission Checklist}
+\begingroup
+\smaller
+\begin{itemize}
+\renewcommand*\labelitemi{\ensuremath{\square}}
+\item All authors are listed, with affiliation
+\item The abstract is not longer than 500 words.
+\item The abstract states, in this order, \emph{Context},
+  \emph{Inquiry}, \emph{Approach}, \emph{Knowledge}, \emph{Grounding}, and
+  \emph{Importance} of the submission.
+\item The ACM CCS 2012 classification is included.
+\item A list of relevant keywords is provided.
+\item One \emph{perspective} has been chosen.
+\item One or more \emph{area(s) of submission} have been chosen.
+\item The license has been acknowledged or changed to fit.
+\item The title page does not spill onto the second page.
+\item The running title on even pages' heads is not wider than the text block.
+\item The running list of author on odd pages' heads is not wider than the text
+  block.
+\item The only text encoding used is \textsc{utf-8}.
+\item The fonts, margins, and spacings are unchanged.
+\item All \textsc{url}s are marked using the \lstinline|\url| command.
+\item All units are separated from their values with a half space, consistently
+  (see ~\cite{siunitx}).
+\item Bold font is not used (or only in exceptional circumstances).
+\item Underlining is not used (no exceptions).
+\item Bold or bright colors are only ever used sparingly.
+\item The captions of (a) tables, (b) listings, and (c) algorithms are
+  \emph{above} the content, flush left.
+\item The captions of (a) figures, (b) charts, (c) combined content, and
+  similar are \emph{below} the content, flush left.
+\item %
+  \begin{minipage}[t]{.4\linewidth}
+    Tables adhere to best practice layout~\cite{booktabs}. The do not contain
+  vertical lines and only few horizontal lines.
+  \end{minipage}
+  {\renewcommand{\arraystretch}{.6}
+    \hspace{2em} \textcolor{DarkGreen}{Yes} \hspace{1em}
+      \begin{tabular}[t]{ll}\noalign{\vspace*{-2.2ex}}
+        \toprule
+        \emph{a} & \emph{b}\\
+        \midrule
+        x & abc \\
+        y & def \\
+        \bottomrule
+      \end{tabular}
+      \hspace{2em} \textcolor{DarkRed}{No} \hspace{1em}
+      \begin{tabular}[t]{|l|l|}\noalign{\vspace*{-1.6ex}}
+        \hline
+        \emph{a} & \emph{b}\\
+        \hline\hline
+        x & abc \\\hline
+        y & def \\\hline
+      \end{tabular}}
+\item All fonts are embedded. This includes the fonts for any included
+  (\textsc{pdf}-)graphics.
+\item All graphics are either vector graphics or have at least 300\,dpi.
+  \item Acknowledgements, including statement of funding bodies or projects, is
+  placed before the references, using the \lstinline|\acks| command.
+\item Citations in the text are preceded by a non-breaking space.
+  (\(\rightarrow\) Citations do not appear at the beginning of a line)
+\item The bibliography lists all cited works, all authors are given (no
+  \emph{et. al.}), the full names of the authors are used.
+\item All bibliography entries have a \textsc{doi} (unless not applicable, such as for
+  slides or unpublished work).
+\item All bibliography entires show an \textsc{isbn}, if they have one assigned.
+\item All bibliography entires that represent web sites have a \textsc{url} and
+  an \emph{access date}.
+\item No bibliography entry have duplicate information in \textsc{url} and
+  \textsc{doi}.
+\end{itemize}
+% 
+For the final phase (or camera-ready copy), additionally:
+\begin{itemize}
+\renewcommand*\labelitemi{\ensuremath{\square}}
+\renewcommand*\labelitemii{\ensuremath{\square}}
+\item The \lstinline|\paperdetails| are included as provided by the journal.
+\item The \textsc{doi}, and submission and publication date appear on the title
+  page.
+\item Neither the \emph{perspective} nor the \emph{area of submission} appear
+  on the title.
+\end{itemize}
+
+\endgroup
+
 \end{document}
 
 % Local Variables:
