@@ -2,7 +2,7 @@
 % vim: set fileencoding=utf-8 :
 \documentclass[english,submission]{programming}
 %% First parameter: the language is 'english'.
-%% Second parameter: use 'submission' for initial submission, remove it for camera-ready (see 4.1)
+%% Second parameter: use 'submission' for initial submission, remove it for camera-ready (see 5.1)
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{example.bib}
@@ -58,7 +58,7 @@
 
 
 %%%%%%%%%%%%%%%%%%
-%% These data MUST be filled for your submission. (see 4.3)
+%% These data MUST be filled for your submission. (see 5.3)
 \paperdetails{
   %% perspective options are: art, sciencetheoretical, scienceempirical, engineering.
   %% Choose exactly the one that best describes this work. (see 2.1)
@@ -67,6 +67,9 @@
   %% Please see list of areas in http://programming-journal.org/cfp/
   %% The list is open-ended, so use other areas if yours is/are not listed.
   area={Social Coding, General-purpose programming},
+  %% You may choose the license for your paper (see 3.)
+  %% License options include: cc-by (default), cc-by-nc
+  % license=cc-by,
 }
 %%%%%%%%%%%%%%%%%%
 
@@ -373,6 +376,34 @@ To specify the area of expertise for your work, please set the
 \lstinline|area| keyword of  the \lstinline|\paperdetails| command to
 one of the preceding suggested areas, or provide your own. Please use curly
 braces \lstinline|{}| around the value.
+
+\section{Choice of License (optional)}
+
+All work published by The Art, Science, and Engineering of Programming will be
+available as open-access. Therefore, authors submitting a paper to The Art,
+Science, and Engineering of Programming should grant a Creative Commons
+license. We support two licenses (description adapted from
+Wikipedia\footnote{\url{https://en.wikipedia.org/w/index.php?title=Creative_Commons_license&oldid=754498632}}):
+\begin{description}
+\item[\ccby] \href{https://creativecommons.org/licenses/by/4.0}{Attribution 4.0
+    \textsmaller{\textsc{cc by 4.0}}}\\
+  {\small
+    Licensees may copy, distribute, display and perform the work and make
+    derivative works and remixes based on it only if they give the author or
+    licensor the credits (attribution) in the manner specified by these.}
+  \item[\ccbync]
+  \href{https://creativecommons.org/licenses/by-nc-sa/4.0}{Attribution-NonCommercial
+    4.0 \textsmaller{\textsc{cc by-nc 4.0}}}\\
+  {\small
+  Licensees may copy, distribute, display and perform the work and make
+  derivative works and remixes based on it only if they give the author or
+  licensor the credits (attribution) in the manner specified by these and only
+  for non-commercial purposes.}
+\end{description}
+%
+To choose a license for your work, set the
+\lstinline|license| keyword of  the \lstinline|\paperdetails| command to
+either \lstinline|cc-by| or \lstinline|cc-by-sa|. Please be aware that, in absence of a choice, we assume \textsc{cc by}.
 
 \section{Typographical and Technical Aspects}
 

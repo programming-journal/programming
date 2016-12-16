@@ -113,6 +113,32 @@
   \FamilyKeyStateProcessed}
 
 
+\providecommand*\P@license{by}
+
+\newcommand*\P@set@license[1]{%
+  \renewcommand*\P@license{#1}
+  \if@atdocument
+    \setkeys{doclicense}{modifier=#1}
+  \else%
+    \PassOptionsToPackage{doclicense}{modifier=#1}%
+  \fi}
+
+\P@Key{license}{
+  \P@setnum{license}{@tempa}{%
+    {ccby}{0},{cc-by}{0},%
+    {ccbync}{1},{cc-by-nc}{1},%
+  }{#1}
+  \ifcase \@tempa\relax
+    \P@set@license{by}
+  \or
+    \P@set@license{by-nc}
+  \fi
+  \FamilyKeyStateProcessed}
+
+\P@StdOption{ccby}{license=ccby}
+\P@StdOption{ccbync}{license=ccbync}
+
+
 % for paperdetails
 
 \providecommand*\P@area{%
@@ -354,7 +380,6 @@
   \RequirePackage{accsupp}
 }
 
-
 \RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
 \definecolor{P@Blue}{named}{RoyalBlue}
 \definecolor{P@ColorOnBlue}{gray}{.95}
@@ -365,7 +390,7 @@
 \setlength{\doclicenseimagewidth}{2.7cm}
 \RequirePackage[
   type={CC},
-  modifier={by-nd},
+  modifier=\P@license,
   version={4.0},
   imagewidth=\doclicenseimagewidth,
 ]{doclicense}
