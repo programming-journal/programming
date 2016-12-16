@@ -160,6 +160,8 @@
 \providecommand*\P@Issue{}
 \providecommand*\P@ArticleNumber{}
 
+\newcommand*\P@DOI@BASE{https://doi.org/}
+
 \P@CRCKey{year}{\renewcommand*\P@Year{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
 \P@CRCKey{volume}{\renewcommand*\P@Volume{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
 \P@CRCKey{issue}{\renewcommand*\P@Issue{#1}\P@@DOI@Setup\FamilyKeyStateProcessed}
@@ -221,6 +223,7 @@
   numbers=noenddot,
 }
 \KOMAoption{captions}{nooneline,tableheading}
+\setcapdynwidth{\textwidth}
 
 \newcommand*\P@settopbottommargins{%
   \setlength{\topmargin}{-15pt}%
@@ -753,7 +756,7 @@
   \begin{minipage}[b][0pt][b]{\textwidth}
     \null\noindent%
     \normalfont%
-    \P@doclicenseImage%
+    \hspace{-1mm}\P@doclicenseImage%
     \hfill%
     \begin{minipage}[b]%
       {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
@@ -767,9 +770,8 @@
           \ifcsvoid{P@Volume}{}{, vol.\,\P@Volume\ignorespaces}%
           \ifcsvoid{P@Issue}{}{, no.\,\P@Issue\ignorespaces}%
           \ifcsvoid{P@Year}{}{, \P@Year\ignorespaces}%
-          \ifcsvoid{P@ArticleNumber}%
-          {, pages \P@firstpage--\P@lastpage}%
-          {, pages \P@ArticleNumber\P@pagemarkseparator\P@firstpage--\P@lastpage}.}
+          \ifcsvoid{P@ArticleNumber}{}{, article \P@ArticleNumber}%
+          ; \P@lastpage\space pages.}%
     \end{minipage}%
   \end{minipage}
 }{}
@@ -791,11 +793,11 @@
     {\usekomafont{subtitle}\selectfont%
       \vskip .5\baselineskip%
       \@subtitle \par}}
-  \vskip\baselineskip%
+  \bigskip%
   %
   {\let\P@affil\textsuperscript
     \usekomafont{author}\@author \par}
-  \vskip\baselineskip
+  \smallskip%
   %
   {\usekomafont{affiliation}%
     \printaffiliations}%
@@ -829,29 +831,28 @@
   \footnotesize\sffamily%
   \noindent{\bfseries\color{P@GrayFG} #1}\enspace}
 
-\newkomafont{abstract}{\small}
+\newkomafont{abstract}{\fontsize{8.5}{10}\selectfont}
 \renewenvironment{abstract}{%
-  \par%
+  \par\smallskip%
   \begingroup
   {\P@headersection{\abstractname}}
-  \usekomafont{abstract}
+  \begingroup\usekomafont{abstract}
   \noindent\ignorespaces%
 }{%
   \par
+  \endgroup
   \begingroup
   \raggedright
   \ifcsvoid{@ACMccs}{}{%
-    {\P@headersection{ACM CCS 2012}
-    \begin{itemize}\@ACMccs\end{itemize}}}%
+    {\P@headersection{ACM CCS 2012}      
+      \begin{itemize}\@ACMccs\end{itemize}%
+      \vspace{-\topsep}}}%
   \ifcsvoid{P@keywords}{}{%
     {\P@headersection{Keywords}
     \P@keywords}}%
-  \ifcsvoid{P@DOI}{}{%
-    {\P@headersection{Digital Object Identifier}
-      \href{http://dx.doi.org/\P@DOI}{\P@DOI}}}%
   \par%
   \vfill%
-  \noindent\null\begin{minipage}[t][7\P@corebaselineskip]{\linewidth}{}%
+  \noindent\null\begin{minipage}[t][6\P@corebaselineskip][t]{\linewidth}{}%
     \vspace*{0pt}%
     \ifthenelse{\value{page} > 1}{\P@warning{%
         Your abstract seems to extend over the first page. Please consider
@@ -859,17 +860,21 @@
       }}{}%
   {\microtypesetup{activate=false}%
     \Large\selectfont \P@banner\par}
-  {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}
+  {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}%
+  \sffamily
     \ifthenelse{\boolean{P@submission}}{%
-      {{\P@headersection{Perspective}}{\large\P@perspective}}\strut%
-      {{\P@headersection{Area of Submission}}{\large\P@area}}\strut%
+      {{\P@headersection{\rlap{Perspective}\phantom{Area of Submission}}}{\normalsize\P@perspective}}\strut%
+      {{\P@headersection{Area of Submission}}{\normalsize\P@area}}\strut%
     }{%
       \DTMifsaveddate{P@date@submitted}{%
-        {{\P@headersection{Submitted}
-            \DTMUsedate{P@date@submitted}}}}{}\strut%
+        {{\P@headersection{{Submitted}}}
+            \DTMUsedate{P@date@submitted}}}{}\strut%
       \DTMifsaveddate{P@date@published}{%
-        {{\P@headersection{\rlap{Published}\phantom{Submitted}}
+        {{{\P@headersection{\rlap{Published}\phantom{Submitted}}}
             \DTMUsedate{P@date@published}}}}{}\strut%
+      \ifcsvoid{P@DOI}{}{%
+        {{\P@headersection{\rlap{\textsc{doi}}\phantom{Submitted}}}
+          \href{\P@DOI@BASE\P@DOI}{\P@DOI}}}%
     }\par
     \vfill
   \end{minipage}
