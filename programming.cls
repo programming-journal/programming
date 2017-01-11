@@ -249,7 +249,6 @@
   numbers=noenddot,
 }
 \KOMAoption{captions}{nooneline,tableheading}
-\setcapdynwidth{\textwidth}
 
 \newcommand*\P@settopbottommargins{%
   \setlength{\topmargin}{-15pt}%
