@@ -647,7 +647,7 @@
   \gdef\P@last@author{#2}%
   \listgadd\P@authors{%
     \P@author@link{#2}\ignorespaces%
-    \P@affil{#1}}%
+    \P@affil{#1}\relax}%
   \stepcounter{P@authors}%
   \P@author@serialize%
 }
