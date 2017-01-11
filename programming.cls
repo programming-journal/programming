@@ -143,12 +143,12 @@
 
 \providecommand*\P@area{%
   \P@warning@noline{No area specified}%
-  {\larger\textbf{No area specified. Please add a \texttt{\string\area\{...\}} before \string\maketitle.}}}
+  {\larger\textbf{No area specified. Please add a \texttt{area=..} option to \string\paperdetails{...}.}}}
 \P@SubmissionKey{area}{\gdef\P@area{#1}\FamilyKeyStateProcessed}
 
 \providecommand*\P@perspective{%
   \P@warning@noline{No perspective selected}%
-  {\larger\textbf{No perspective selected. Please add a \texttt{perspective=...} document option.}}}%
+  {\larger\textbf{No perspective selected. Please add a \texttt{perspective=...}  option to \string\paperdetails{...}.}}}%
 \P@SubmissionKey{perspective}{
   \P@setnum{perspective}{@tempa}{%
     {art}{0},{theart}{0},%
