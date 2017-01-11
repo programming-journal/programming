@@ -486,7 +486,7 @@
     url=true,%
     abbreviate=false,%
     maxnames=20}
-  \@ifpackagelater{biblatex}{2016-09-10}%
+  \@ifpackagelater{biblatex}{2016/09/10}%
     {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}%
     {\ExecuteBibliographyOptions{urldate=iso8601}}
   \PreventPackageFromLoading[\message{%
