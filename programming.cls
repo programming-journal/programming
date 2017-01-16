@@ -842,7 +842,7 @@
     {\hypersetup{pdftitle={\@title}}}
     {\hypersetup{pdftitle={\@title: \@subtitle}}}
     % 2016/Vol1/Issue1 is special
-    \ifthenelse{\equal{\P@Year}{2016}\AND\equal{\P@Volume}{1}\AND\equal{\P@Issue}{1}}%
+    \ifthenelse{\equal{\P@Year}{2017}\AND\equal{\P@Volume}{1}\AND\equal{\P@Issue}{1}}%
       {\hypersetup{pdfcreator={programming},pdfproducer={programming}}}%
       {}%
   % %
