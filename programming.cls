@@ -339,7 +339,8 @@
 
 \ifthenelse{\boolean{xetex}}%
  {}% see above
- {\microtypesetup{tracking,letterspace=50}
+ {\microtypesetup{letterspace=50}
+  \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
   \DisableLigatures{encoding = *, family = tt* }}
 
 \newcommand*\P@CodeSetup{%
