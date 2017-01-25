@@ -306,7 +306,11 @@
 \csundef{P@MDback@hrulefill}
 % }}}
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
-  {\RequirePackage{fontspec}[2013/05/20]
+  {\@ifpackagelater{scrbase}{2015/11/22}%
+    {% >= TL 2016; not much is tuenc ready.
+      \PassOptionsToPackage{euenc}{fontspec}}
+    {}
+    \RequirePackage{fontspec}[2013/05/20]
     \ifthenelse{\boolean{xetex}}%
       {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
       {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
