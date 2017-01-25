@@ -864,12 +864,13 @@
   \noindent{\bfseries\color{P@GrayFG} #1}\enspace}
 
 \newkomafont{abstract}{\fontsize{8.5}{10}\selectfont}
-\renewenvironment{abstract}{%
-  \par\smallskip%
-  \begingroup
-  {\P@headersection{\abstractname}}
-  \begingroup\usekomafont{abstract}
-  \noindent\ignorespaces%
+\renewenvironment{abstract}%
+  {\par\smallskip%
+    \begingroup
+    \newcommand\P@gobblepar[1]{\@ifnextchar\par{\P@gobblepar}{}}
+    {\P@headersection{\abstractname}}
+    \begingroup\usekomafont{abstract}
+    \@ifnextchar\par{\P@gobblepar}{}%
 }{%
   \par
   \endgroup
