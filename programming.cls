@@ -213,6 +213,9 @@
    {fixltx2e}}
    {\RequirePackage{fixltx2e}}%
 
+% don't be too noisy.
+ \PassOptionsToPackage{log-declarations=false}{xparse}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fixes for intermediate versions.
