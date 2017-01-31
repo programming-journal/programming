@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
 \ProvidesClass{programming}%
-    [2016/12/16 v1.1 ^^J Articles for \P@banner^^J]
+    [2017/01/11 v1.2 ^^J Articles for \P@banner^^J]
 
 
 %%
@@ -143,12 +143,12 @@
 
 \providecommand*\P@area{%
   \P@warning@noline{No area specified}%
-  {\larger\textbf{No area specified. Please add a \texttt{\string\area\{...\}} before \string\maketitle.}}}
+  {\larger\textbf{No area specified. Please add a \texttt{area=..} option to \string\paperdetails{...}.}}}
 \P@SubmissionKey{area}{\gdef\P@area{#1}\FamilyKeyStateProcessed}
 
 \providecommand*\P@perspective{%
   \P@warning@noline{No perspective selected}%
-  {\larger\textbf{No perspective selected. Please add a \texttt{perspective=...} document option.}}}%
+  {\larger\textbf{No perspective selected. Please add a \texttt{perspective=...}  option to \string\paperdetails{...}.}}}%
 \P@SubmissionKey{perspective}{
   \P@setnum{perspective}{@tempa}{%
     {art}{0},{theart}{0},%
@@ -212,6 +212,9 @@
      \typeout{avoid fixltx2e if it does nothing in the first place}]%
    {fixltx2e}}
    {\RequirePackage{fixltx2e}}%
+
+% don't be too noisy.
+ \PassOptionsToPackage{log-declarations=false}{xparse}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -303,7 +306,11 @@
 \csundef{P@MDback@hrulefill}
 % }}}
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
-  {\RequirePackage{fontspec}[2013/05/20]
+  {\@ifpackagelater{scrbase}{2015/11/22}%
+    {% >= TL 2016; not much is tuenc ready.
+      \PassOptionsToPackage{euenc}{fontspec}}
+    {}
+    \RequirePackage{fontspec}[2013/05/20]
     \ifthenelse{\boolean{xetex}}%
       {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
       {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
@@ -339,7 +346,8 @@
 
 \ifthenelse{\boolean{xetex}}%
  {}% see above
- {\microtypesetup{tracking,letterspace=50}
+ {\microtypesetup{letterspace=50}
+  \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
   \DisableLigatures{encoding = *, family = tt* }}
 
 \newcommand*\P@CodeSetup{%
@@ -486,7 +494,7 @@
     url=true,%
     abbreviate=false,%
     maxnames=20}
-  \@ifpackagelater{biblatex}{2016-09-10}%
+  \@ifpackagelater{biblatex}{2016/09/10}%
     {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}%
     {\ExecuteBibliographyOptions{urldate=iso8601}}
   \PreventPackageFromLoading[\message{%
@@ -647,7 +655,7 @@
   \gdef\P@last@author{#2}%
   \listgadd\P@authors{%
     \P@author@link{#2}\ignorespaces%
-    \P@affil{#1}}%
+    \P@affil{#1}\relax}%
   \stepcounter{P@authors}%
   \P@author@serialize%
 }
@@ -842,7 +850,7 @@
     {\hypersetup{pdftitle={\@title}}}
     {\hypersetup{pdftitle={\@title: \@subtitle}}}
     % 2016/Vol1/Issue1 is special
-    \ifthenelse{\equal{\P@Year}{2016}\AND\equal{\P@Volume}{1}\AND\equal{\P@Issue}{1}}%
+    \ifthenelse{\equal{\P@Year}{2017}\AND\equal{\P@Volume}{1}\AND\equal{\P@Issue}{1}}%
       {\hypersetup{pdfcreator={programming},pdfproducer={programming}}}%
       {}%
   % %
@@ -856,12 +864,13 @@
   \noindent{\bfseries\color{P@GrayFG} #1}\enspace}
 
 \newkomafont{abstract}{\fontsize{8.5}{10}\selectfont}
-\renewenvironment{abstract}{%
-  \par\smallskip%
-  \begingroup
-  {\P@headersection{\abstractname}}
-  \begingroup\usekomafont{abstract}
-  \noindent\ignorespaces%
+\renewenvironment{abstract}%
+  {\par\smallskip%
+    \begingroup
+    \newcommand\P@gobblepar[1]{\@ifnextchar\par{\P@gobblepar}{}}
+    {\P@headersection{\abstractname}}
+    \begingroup\usekomafont{abstract}
+    \@ifnextchar\par{\P@gobblepar}{}%
 }{%
   \par
   \endgroup
