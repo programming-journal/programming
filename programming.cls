@@ -424,7 +424,6 @@
   \DeclareGraphicsRule{.ai}{QTm}{*}{}
 }{
   \DeclareGraphicsRule{.ai}{pdf}{*}{}
-  \pdfpagebox=5
 }
 \AppendGraphicsExtensions{.ai,.AI}
 
