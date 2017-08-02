@@ -517,7 +517,8 @@
 \setfnpct{after-punct-space={-.2em}}
 
 % koma-hacks
-\RequirePackage{scrhack}
+\RequirePackage{etoolbox}
+\AtEndPreamble{\RequirePackage{scrhack}}
 
 \setkomafont{pageheadfoot}{\firamedium}
 
