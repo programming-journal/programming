@@ -594,7 +594,7 @@
 
 \newlength{\P@corebaselineskip}
 \setlength{\P@corebaselineskip}{\baselineskip}
-\newcommand*\P@pagemarkseparator{-}
+\newcommand*\P@pagemarkseparator{:}
 
 
 \AtBeginDocument{%
