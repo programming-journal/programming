@@ -470,6 +470,9 @@
 \lst@AddToHook{FontAdjust}{\P@CodeSetup}
 \lst@AddToHook{DisplayStyle}{\def\baselinestretch{1}\@currsize}
 \lst@AddToHook{TextStyle}{\lstset{breaklines=false}}
+% work around listings being too smart
+\lst@AddToHook{Init}{\let\ttdefault\f@family}
+
 
 \AtEndPreamble{\RequirePackage{siunitx}}
 \AfterPackage{siunitx}{%
