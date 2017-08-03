@@ -850,13 +850,16 @@
   \global\let\@author\@@author
   \hypersetup{pdfkeywords = {\P@keywords}}
   \ifdefvoid{\@subtitle}%
-    {\hypersetup{pdftitle={\@title}}}
-    {\hypersetup{pdftitle={\@title: \@subtitle}}}
-    % 2016/Vol1/Issue1 is special
-    \ifthenelse{\equal{\P@Year}{2017}\AND\equal{\P@Volume}{1}\AND\equal{\P@Issue}{1}}%
-      {\hypersetup{pdfcreator={programming},pdfproducer={programming}}}%
-      {}%
-  % %
+    {\hypersetup{pdftitle={\@title}}}%
+    {\hypersetup{pdftitle={\@title: \@subtitle}}}%
+  \relax%
+  \hypersetup{pdfcreator={programming},pdfproducer={programming}}% WOAMI
+  \ifthenelse{\boolean{pdf}}%
+    {\ifthenelse{\boolean{luatex}}%
+      {\gdef\P@aftertitle{\directlua{pdf.setsuppressoptionalinfo(15)}}}%
+      {\gdef\P@aftertitle{\ifx\pdfsuppressptexinfo\undefined\relax\else\global\pdfsuppressptexinfo=-1\fi}}}%
+    {\gdef\P@aftertitle{}}%
+    \aftergroup\P@aftertitle\relax
   \endgroup%
   \global\let\P@affil\@gobble%
 }
