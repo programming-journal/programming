@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
 \ProvidesClass{programming}%
-    [2017/01/11 v1.2 ^^J Articles for \P@banner^^J]
+    [2017/08/05 v1.3 ^^J Articles for \P@banner^^J]
 
 
 %%
@@ -594,7 +594,7 @@
 
 \newlength{\P@corebaselineskip}
 \setlength{\P@corebaselineskip}{\baselineskip}
-\newcommand*\P@pagemarkseparator{:}
+\newcommand*\P@pagemarkseparator{\kern.06667em :\kern.06667em\relax}
 
 
 \AtBeginDocument{%
