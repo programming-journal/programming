@@ -440,7 +440,7 @@
         UprightFont    = *-Book ,
         ItalicFont     = *-BookItalic ,
         BoldFont    = *-Bold ,
-        BoldItalicFont     = *-Bold Italic ,
+        BoldItalicFont     = *-BoldItalic ,
       ]
       {FiraSans}}{}
 
