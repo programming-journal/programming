@@ -603,21 +603,21 @@
 \RequirePackage{comment}
 \excludecomment{CCSXML}
 
+
 \let\@ACMccs\@empty
 \newcommand*\ccsdesc[2][100]{%
-  \@@ACMccs#2[#1]}
-\def\@@ACMccs#1~#2[#3]{%
+  \@@ACMccs#2@#1@}
+\def\@@ACMccs#1~#2@#3@{%
   \def\@tempa{\relax}%
   \ifnum#3>299\def\@tempa{\itshape}\fi%
   \ifnum#3>499\def\@tempa{\bfseries}\fi%
-%
+  %
   \ifcsdef{@ACMccs@#1}{}{%
-    \def\@tempb{\item{}\begingroup}
-    \eappto{\@tempb}{\expandonce\@tempa}
-    \appto{\@tempb}{#1 → }
-    \global\cslet{@ACMccs@#1}\@tempb
-    \gappto\@ACMccs{\csuse{@ACMccs@#1}\endgroup}}%
-  \csgappto{@ACMccs@#1}{#2; }}
+    \csgdef{@ACMccs@#1}{\item{}\textbf{#1} → }
+    \gappto\@ACMccs{\csuse{@ACMccs@#1}}}%
+  \ifstrempty{#2}{}{%
+    \csxappto{@ACMccs@#1}{\begingroup\expandonce\@tempa}
+    \csgappto{@ACMccs@#1}{#2\endgroup; }}}
 
 \let\P@keywords\@empty
 \newcommand*\keywords[1]{\gdef\P@keywords{#1}}
