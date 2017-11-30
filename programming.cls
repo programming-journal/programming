@@ -120,7 +120,7 @@
   \if@atdocument
     \setkeys{doclicense}{modifier=#1}
   \else%
-    \PassOptionsToPackage{doclicense}{modifier=#1}%
+    \PassOptionsToPackage{modifier=#1}{doclicense}%
   \fi}
 
 \P@Key{license}{
