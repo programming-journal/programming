@@ -797,7 +797,7 @@
       {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
       \ignorespaces
       \scriptsize%
-      \textcopyright\ {\@author}\\
+      \textcopyright\ {\@authorrunning}\\
       \doclicenseText\\
       \ifthenelse{\boolean{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
