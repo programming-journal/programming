@@ -325,6 +325,7 @@
    {}}
 \linespread{1.05}
 
+\AtBeginDocument{
 \defcaptionname{english}{\figureautorefname}{figure}
 \defcaptionname{english}{\tableautorefname}{table}
 \defcaptionname{english}{\lstlistingautorefname}{listing}
@@ -332,6 +333,7 @@
 \defcaptionname{english}{\subsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\subsubsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\appendixautorefname}{appendix}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
