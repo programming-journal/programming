@@ -805,7 +805,7 @@
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%
           \ifcsvoid{P@Volume}{}{, vol.\,\P@Volume\ignorespaces}%
-          \ifcsvoid{P@Issue}{}{, no.\,\P@Issue\ignorespaces}%
+          \ifcsvoid{P@Issue}{}{, \IfInteger{\P@Issue}{no.\,}{}\P@Issue\ignorespaces}%
           \ifcsvoid{P@Year}{}{, \P@Year\ignorespaces}%
           \ifcsvoid{P@ArticleNumber}{}{, article \P@ArticleNumber}%
           ; \P@lastpage\space pages.}%
@@ -817,6 +817,7 @@
 
 \addtokomafont{title}{\Large\sffamily\bfseries\mathversion{bold}}
 \addtokomafont{author}{\large}
+\addtokomafont{subject}{\sffamily\itshape\color{P@GrayFG}}
 
 \renewcommand*\@maketitle{%
   \label{P:firstpage}%
@@ -825,6 +826,11 @@
   \parindent\z@ \raggedright%
   \normalfont%
   \raggedright%
+  \ifdefvoid\@subject%
+    {}%
+    {\vspace*{-2.5\baselineskip}%
+      {\usekomafont{subject}\selectfont%
+          \@subject \par}}%
   {\usekomafont{title}\@title\par}%
   \ifdefvoid\@subtitle{}{%
     {\usekomafont{subtitle}\selectfont%
