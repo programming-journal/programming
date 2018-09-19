@@ -498,7 +498,9 @@
     abbreviate=false,%
     maxnames=20}
   \@ifpackagelater{biblatex}{2016/09/10}%
-    {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}%
+    {\@ifpackagelater{biblatex}{2017/12/19}%
+      {\ExecuteBibliographyOptions{urldate=iso,seconds=true}}%
+      {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}}%
     {\ExecuteBibliographyOptions{urldate=iso8601}}
   \PreventPackageFromLoading[\message{%
     ^^J^^JERROR: You tried to load  the cite package that is not compatible
