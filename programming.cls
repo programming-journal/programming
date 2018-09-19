@@ -347,18 +347,17 @@
   {}
 
 \ifthenelse{\boolean{xetex}}%
- {}% see above
- {\microtypesetup{letterspace=50}
-  \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
-  \DisableLigatures{encoding = *, family = tt* }}
+  {}% see above
+  {\microtypesetup{letterspace=50}
+   \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
+   \DisableLigatures{encoding = *, family = tt* }}
 
 \newcommand*\P@CodeSetup{%
-  \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
-    {\addfontfeatures{Ligatures={NoCommon}}%
-      \ifthenelse{\boolean{luatex}}%
-        {\addfontfeatures{RawFeature={-tlig,-trep}}}%
-        {\addfontfeatures{Mapping=}}}%
-    {}}
+ \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
+   {\ifthenelse{\boolean{luatex}}%
+      {\addfontfeatures{RawFeature={-rlig,-tlig,-trep}}}%
+      {\addfontfeatures{Mapping=,Ligatures={NoCommon}}}}%
+    {}}%
 
 \AtBeginEnvironment{verbatim}{\microtypesetup{activate=false}\P@CodeSetup}
 
