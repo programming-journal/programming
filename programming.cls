@@ -20,7 +20,7 @@
 
 \GenerateLogMacros{class}[P]{programming}
 
-\RequirePackage{etoolbox}
+\RequirePackage{etoolbox,xstring}
 \RequirePackage{scrbase}[2014/10/28]
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
@@ -522,7 +522,6 @@
 \setfnpct{after-punct-space={-.2em}}
 
 % koma-hacks
-\RequirePackage{etoolbox}
 \AtEndPreamble{\RequirePackage{scrhack}}
 
 \setkomafont{pageheadfoot}{\firamedium}
