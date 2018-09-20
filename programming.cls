@@ -428,12 +428,15 @@
 % prefer pdf over png
 \PrependGraphicsExtensions{.pdf,.PDF}
 % ai's are just pdfs.
-\ifthenelse{\boolean{xetex}}{
-  \DeclareGraphicsRule{.ai}{QTm}{*}{}
-}{
-  \DeclareGraphicsRule{.ai}{pdf}{*}{}
-}
+\ifthenelse{\boolean{xetex}}%
+  {\DeclareGraphicsRule{.ai}{QTm}{*}{}}
+  {\DeclareGraphicsRule{.ai}{pdf}{*}{}}
 \AppendGraphicsExtensions{.ai,.AI}
+
+\ifthenelse{\boolean{xetex}}%
+  {% XeTeX can naturally process eps. This here avoids a warning
+    \PreventPackageFromLoading{epstopdf}}
+  {}
 
 \RequirePackage{multirow,tabularx,booktabs,threeparttable}
 \RequirePackage[figuresright]{rotating}
