@@ -118,11 +118,18 @@
 \newcommand*\P@set@license[1]{%
   \renewcommand*\P@license{#1}
   \if@atdocument
-    \setkeys{doclicense}{modifier=#1}
-  \else%
-    \PassOptionsToPackage{modifier=#1}{doclicense}%
-  \fi}
-
+  \P@error{License set too late, move \string\paperdetails up in the document.}%
+  {The license cannot be set to ``#1'' at this point in the process. Please
+    move the \string\paperdetails command before the \string\begin\{document\}
+      command.}
+    \else
+  \@ifpackageloaded{doclicense}%
+    {\undef\doclicenseURL%
+      \setkeys{doclicense}{modifier=#1}%
+      % hack: propagate settings
+      \doclicense@set}
+    {\PassOptionsToPackage{modifier=#1}{doclicense}}}
+ 
 \P@Key{license}{
   \P@setnum{license}{@tempa}{%
     {ccby}{0},{cc-by}{0},%
