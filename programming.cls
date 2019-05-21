@@ -790,7 +790,7 @@
 \setkomafont{pagenumber}{\firamedium}
 \cfoot{%
   \ifdefvoid\P@ArticleNumber{}{%
-    \usekomafont{pagenumber}\mdseries\P@ArticleNumber\P@pagemarkseparator}%
+    \sffamily\mdseries\P@ArticleNumber\P@pagemarkseparator}%
   \pagemark}
 
 
