@@ -32,7 +32,8 @@
       \@ifpackagelater{luatex85}{2016/06/15}%
         {}% creationdate-problem fixed
         {{\outputmode=1 \xdef\pdfcreationdate{\pdffeedback creationdate}}}}
-    {}}%
+    {}
+    \IfFileExists{luatexbase.sty}{\RequirePackage{luatexbase}}{}}%
   {}
 
 %%%%
@@ -426,12 +427,12 @@
   bookmarksnumbered = true,
   pdfpagemode = UseOutlines,
 }{hyperref}
-\BeforeBeginEnvironment{document}{\RequirePackage{hyperref}}
-\AfterPackage{hyperref}{%
+\BeforeBeginEnvironment{document}{
+  \RequirePackage{hyperref}
+  \RequirePackage{bookmark}
   \RequirePackage{hyperxmp}
   \RequirePackage{hypcap}
   \RequirePackage{accsupp}
-  \RequirePackage{bookmark}
 }
 
 \PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
@@ -439,7 +440,11 @@
   {\BeforeBeginEnvironment{document}{\RequirePackage{cleveref}}}
   {} % nothing
 
-\RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
+
+\ifthenelse{\boolean{luatex}\OR\boolean{xetex}}%
+  {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names}{xcolor}}
+  {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names,fixpdftex}{xcolor}}
+\RequirePackage{xcolor}
 \definecolor{P@Blue}{named}{RoyalBlue}
 \definecolor{P@ColorOnBlue}{gray}{.95}
 \definecolor{P@GrayFG}{named}{darkgray}
