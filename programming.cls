@@ -483,7 +483,11 @@
 \lst@AddToHook{DisplayStyle}{\def\baselinestretch{1}\@currsize}
 \lst@AddToHook{TextStyle}{\lstset{breaklines=false}}
 % work around listings being too smart
-\lst@AddToHook{Init}{\let\ttdefault\f@family}
+% \lst@AddToHook{Init}{\let\ttdefault\f@family\edef\ttdefault{\ttdefault}}
+\patchcmd{\lst@ttfamily}%
+  {\ifx\f@family\ttdefault#1\relax\else#2\fi}%
+  {#1}%
+  {}{\P@warning@noline{Cannot patch listings internals. Ignoring.}}
 
 
 \AtEndPreamble{\RequirePackage{siunitx}}
