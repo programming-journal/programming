@@ -565,9 +565,15 @@
   }]{cite}
 }
 \AtEndPreamble{
-  \@ifpackageloaded{biblatex}{}{
-    % normal bibtex
-    \bibliographystyle{plainurl}}}
+  \@ifpackageloaded{biblatex}%
+    {\pretocmd{\printbibliography}%
+      {\pdfbookmark[section]{\refname}{bib}}
+      {}{\P@warning@noline{Cannot prepend to printbibliography. Ignoring.}}}
+    {% normal bibtex
+    \bibliographystyle{plainurl}
+    \pretocmd{\bibliography}%
+      {\pdfbookmark[section]{\refname}{bib}}
+      {}{\P@warning@noline{Cannot prepend to bibliography. Ignoring.}}}}
 
 
 \setfootnoterule{4cc}
