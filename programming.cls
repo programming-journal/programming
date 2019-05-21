@@ -431,6 +431,7 @@
   \RequirePackage{hyperxmp}
   \RequirePackage{hypcap}
   \RequirePackage{accsupp}
+  \RequirePackage{bookmark}
 }
 
 \PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
