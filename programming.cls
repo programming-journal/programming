@@ -80,6 +80,30 @@
   \let\CurrentOption\P@curropt
 }
 
+
+\newbool{P@cleveref}
+\newbool{P@varioref}
+\P@Key{references}[hyperonly]{
+  \P@setnum{references}{@tempa}{%
+    {clever}{0},{cleveref}{0},{cleverref}{0}% account for common typo
+    {noclever}{1},{nocleveref}{1},%
+    {vario}{2},{varioref}{2},%
+    {novario}{3},{novarioref}{3},%
+    {hyperonly}{4},{hyperrefonly}{4},%
+  }{#1}
+  \ifcase \@tempa\relax
+      \booltrue{P@cleveref}
+  \or \boolfalse{P@cleveref}
+  \or \booltrue{P@varioref}
+  \or \boolfalse{P@varioref}
+  \or \boolfalse{P@cleveref}
+      \boolfalse{P@varioref}
+  \fi
+  \FamilyKeyStateProcessed}
+\P@StdOption{cleveref}{references=cleveref}
+\P@StdOption{varioref}{references=varioref}
+
+
 \newbool{P@submission}
 \P@Key{phase}[final]{%
   \ifstr{#1}{final}{\boolfalse{P@submission}}{}
@@ -376,6 +400,19 @@
   \DeclareUrlCommand\path{}% fool emacs: }
 }
 
+%%
+% Order is important here:
+% 1. Varioref (directly loaded here)
+% 2. Hyperref (as late as possible, but not AtEndPreamble,
+%              as this would break biblatex)
+% 3. Varioref (as late as possible, /after/ hyperref)
+% Selection based on user options.
+%
+
+\ifthenelse{\boolean{P@varioref}}%
+  {\RequirePackage{varioref}}
+  {} % nothing
+
 \PassOptionsToPackage{log-declarations=false}{xparse}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{all}{hypcap}
@@ -389,12 +426,17 @@
   bookmarksnumbered = true,
   pdfpagemode = UseOutlines,
 }{hyperref}
-\AtEndPreamble{%
-  \RequirePackage{hyperref}%
+\BeforeBeginEnvironment{document}{\RequirePackage{hyperref}}
+\AfterPackage{hyperref}{%
   \RequirePackage{hyperxmp}
   \RequirePackage{hypcap}
   \RequirePackage{accsupp}
 }
+
+\PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
+\ifthenelse{\boolean{P@cleveref}}%
+  {\BeforeBeginEnvironment{document}{\RequirePackage{cleveref}}}
+  {} % nothing
 
 \RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
 \definecolor{P@Blue}{named}{RoyalBlue}
