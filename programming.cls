@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
 \ProvidesClass{programming}%
-    [2019/05/20 v1.3e ^^J Articles for \P@banner^^J]
+    [2019/09/19 v1.3f ^^J Articles for \P@banner^^J]
 
 
 %%
@@ -537,6 +537,22 @@
   {#1}%
   {}{\P@warning@noline{Cannot patch listings internals. Ignoring.}}
 
+\AfterPackage{minted}{%
+  \AtEndPreamble{%
+    \RequirePackage{mdframed}
+    \mdfdefinestyle{P@md@minted}%
+      {backgroundcolor=P@GrayBG,hidealllines=true}
+    \surroundwithmdframed[style=P@md@minted]{minted}}
+    \renewcommand{\theFancyVerbLine}%
+      {{\P@listingnumbersfont \arabic{FancyVerbLine}}}
+    \setminted{%
+      autogobble,%
+      linenos,%
+      numbersep=.5em,%
+      xleftmargin=-.7em,%
+      fontsize=\small,%
+      breaklines=true}
+    \setmintedinline{fontsize=\normalsize}}
 
 \AtEndPreamble{\RequirePackage{siunitx}}
 \AfterPackage{siunitx}{%
