@@ -535,7 +535,7 @@
 % \lst@AddToHook{Init}{\let\ttdefault\f@family\edef\ttdefault{\ttdefault}}
 \patchcmd{\lst@ttfamily}%
   {\ifx\f@family\ttdefault#1\relax\else#2\fi}%
-  {#1}%
+  {#1\relax}%
   {}{\P@warning@noline{Cannot patch listings internals. Ignoring.}}
 
 \AfterPackage{minted}{%
