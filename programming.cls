@@ -576,7 +576,7 @@
   \ExecuteBibliographyOptions{
     url=true,%
     abbreviate=false,%
-    maxnames=20}
+    maxnames=999}
   \@ifpackagelater{biblatex}{2016/09/10}%
     {\@ifpackagelater{biblatex}{2017/12/19}%
       {\ExecuteBibliographyOptions{urldate=iso,seconds=true}}%
