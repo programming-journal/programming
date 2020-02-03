@@ -388,7 +388,7 @@
 \newcommand*\P@CodeSetup{%
  \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
    {\ifthenelse{\boolean{luatex}}%
-      {\addfontfeatures{RawFeature={-rlig,-tlig,-trep}}}%
+      {\addfontfeatures{RawFeature={-rlig,-tlig,-trep,-onum,+zero}}}%
       {\addfontfeatures{Mapping=,Ligatures={NoCommon}}}}%
     {}}%
 
