@@ -25,8 +25,8 @@
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
 %%
-\RequirePackage{ifthen,ifpdf,ifluatex,ifxetex}
-\ifthenelse{\boolean{luatex}}%
+\RequirePackage{ifpdf,ifluatex,ifxetex}
+\ifboolexpr{bool{luatex}}%
   {\IfFileExists{luatex85.sty}%
     {\RequirePackage{luatex85}
       \@ifpackagelater{luatex85}{2016/06/15}%
@@ -107,19 +107,19 @@
 
 \newbool{P@submission}
 \P@Key{phase}[final]{%
-  \Ifstr{#1}{final}{\boolfalse{P@submission}}{}
-  \Ifstr{#1}{submission}{\booltrue{P@submission}}{}
+  \ifstrequal{#1}{final}{\boolfalse{P@submission}}{}
+  \ifstrequal{#1}{submission}{\booltrue{P@submission}}{}
   \FamilyKeyStateProcessed}
 \P@StdOption{submission}{phase=submission}
 \P@StdOption{crc}{phase=final}
 
 \providecommand*{\P@SubmissionKey}{}
 \def\P@SubmissionKey#1#2{\P@Key{#1}{%
-    \AfterP@Options{\ifthenelse{\boolean{P@submission}}%
+    \AfterP@Options{\ifboolexpr{bool{P@submission}}%
       {#2}{}}}}
 \providecommand*{\P@CRCKey}{}
 \def\P@CRCKey#1#2{\P@Key{#1}{%
-    \AfterP@Options{\ifthenelse{\boolean{P@submission}}%
+    \AfterP@Options{\ifboolexpr{bool{P@submission}}%
       {}{#2}}}}
 
 
@@ -305,7 +305,7 @@
 \RequirePackage{babel}
 
 \RequirePackage[LGR,OT1,LY1,T1]{fontenc}
-\ifthenelse{\boolean{xetex}\OR\boolean{luatex}}{}{%
+\ifboolexpr{bool{xetex}or bool{luatex}}{}{%
   \RequirePackage[utf8]{inputenx}
   \input{ix-utf8enc.dfu}
   \RequirePackage{alphabeta}}
@@ -338,13 +338,13 @@
 \csundef{P@MDback@footnoterule}
 \csundef{P@MDback@hrulefill}
 % }}}
-\ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
+\ifboolexpr{bool{xetex}or bool{luatex}}%
   {\@ifpackagelater{scrbase}{2015/11/22}%
     {% >= TL 2016; not much is tuenc ready.
       \PassOptionsToPackage{euenc}{fontspec}}
     {}
     \RequirePackage{fontspec}[2013/05/20]
-    \ifthenelse{\boolean{xetex}}%
+    \ifboolexpr{bool{xetex}}%
       {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
       {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
     \def\P@fontscale{MatchLowercase}}%
@@ -370,24 +370,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\ifthenelse{\boolean{luatex}}%
+\ifboolexpr{bool{luatex}}%
   {\RequirePackage[final]{microtype}[2013/05/23]}%
   {\RequirePackage[final,babel=true]{microtype}[2013/05/23]}
-\ifthenelse{\boolean{xetex}}%
+\ifboolexpr{bool{xetex}}%
   {\let\textls\undefined
     \DeclareRobustCommand{\textls}[2][80]{%
       {{\addfontfeature{LetterSpace=\the\numexpr#1/10\relax}#2}}}}%
   {}
 
-\ifthenelse{\boolean{xetex}}%
+\ifboolexpr{bool{xetex}}%
   {}% see above
   {\microtypesetup{letterspace=50}
-   \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
+   \ifboolexpr{bool{luatex}}{}{\microtypesetup{tracking}}
    \DisableLigatures{encoding = *, family = tt* }}
 
 \newcommand*\P@CodeSetup{%
- \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
-   {\ifthenelse{\boolean{luatex}}%
+ \ifboolexpr{bool{xetex}or bool{luatex}}%
+   {\ifboolexpr{bool{luatex}}%
       {\addfontfeatures{RawFeature={-rlig,-tlig,-trep,-onum,+zero}}}%
       {\addfontfeatures{Mapping=,Ligatures={NoCommon}}}}%
     {}}%
@@ -410,7 +410,7 @@
 % Selection based on user options.
 %
 
-\ifthenelse{\boolean{P@varioref}}%
+\ifboolexpr{bool{P@varioref}}%
   {\RequirePackage{varioref}}
   {} % nothing
 
@@ -437,12 +437,12 @@
 }
 
 \PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
-\ifthenelse{\boolean{P@cleveref}}%
+\ifboolexpr{bool{P@cleveref}}%
   {\BeforeBeginEnvironment{document}{\RequirePackage{cleveref}}}
   {} % nothing
 
 
-\ifthenelse{\boolean{luatex}\OR\boolean{xetex}}%
+\ifboolexpr{bool{luatex}or bool{xetex}}%
   {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names}{xcolor}}
   {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names,fixpdftex}{xcolor}}
 \RequirePackage{xcolor}
@@ -478,12 +478,12 @@
 % prefer pdf over png
 \PrependGraphicsExtensions{.pdf,.PDF}
 % ai's are just pdfs.
-\ifthenelse{\boolean{xetex}}%
+\ifboolexpr{bool{xetex}}%
   {\DeclareGraphicsRule{.ai}{QTm}{*}{}}
   {\DeclareGraphicsRule{.ai}{pdf}{*}{}}
 \AppendGraphicsExtensions{.ai,.AI}
 
-\ifthenelse{\boolean{xetex}}%
+\ifboolexpr{bool{xetex}}%
   {% XeTeX can naturally process eps. This here avoids a warning
     \PreventPackageFromLoading{epstopdf}}
   {}
@@ -495,7 +495,7 @@
 \RequirePackage[useregional]{datetime2}
 
 
-\ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
+\ifboolexpr{bool{xetex}or bool{luatex}}%
   {\newfontfamily\firaoldstylemono
       [ Numbers = {Monospaced,OldStyle},
         UprightFont    = *-Book ,
@@ -508,7 +508,7 @@
 
 \newcommand*\P@listingnumbersfont{%
   \sffamily\small\color{P@GrayFG!40}%
-  \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
+  \ifboolexpr{bool{xetex}or bool{luatex}}%
     {\firaoldstylemono}
     {\tbfigures}}%
 
@@ -887,7 +887,7 @@
       \scriptsize%
       \textcopyright\ {\@authorrunning}\\
       \doclicenseText\\
-      \ifthenelse{\boolean{P@submission}}%
+      \ifboolexpr{bool{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%
           \ifcsvoid{P@Volume}{}{, vol.\,\P@Volume\ignorespaces}%
@@ -948,8 +948,8 @@
     {\hypersetup{pdftitle={\@title: \@subtitle}}}%
   \relax%
   \hypersetup{pdfcreator={programming},pdfproducer={programming}}% WOAMI
-  \ifthenelse{\boolean{pdf}}%
-    {\ifthenelse{\boolean{luatex}}%
+  \ifboolexpr{bool{pdf}}%
+    {\ifboolexpr{bool{luatex}}%
       {\gdef\P@aftertitle{\directlua{pdf.setsuppressoptionalinfo(15)}}}%
       {\gdef\P@aftertitle{\ifx\pdfsuppressptexinfo\undefined\relax\else\global\pdfsuppressptexinfo=-1\fi}}}%
     {\gdef\P@aftertitle{}}%
@@ -995,7 +995,7 @@
     \Large\selectfont \P@banner\par}
   {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}%
   \sffamily
-    \ifthenelse{\boolean{P@submission}}{%
+    \ifboolexpr{bool{P@submission}}{%
       {{\P@headersection{\rlap{Perspective}\phantom{Area of Submission}}}{\normalsize\P@perspective}}\strut%
       {{\P@headersection{Area of Submission}}{\normalsize\P@area}}\strut%
     }{%
