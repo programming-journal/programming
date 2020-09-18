@@ -719,7 +719,7 @@
   \hspace*{0.67em}}
 \DeclareCaptionLabelFormat{withbox}{%
   \P@BlueBox\bothIfFirst{#1}{~}#2}
-\captionsetup{labelformat=withbox}
+\captionsetup{labelformat=withbox,singlelinecheck=false}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
