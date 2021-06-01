@@ -10,18 +10,28 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Compile LaTeX document (PdfLaTeX)
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/texlive-action/full@v1
         with:
-          root_file: example-programming.tex
+          run: |
+             pdflatex example-programming
+             biber    example-programming
+             pdflatex example-programming
+             pdflatex example-programming
 
       - name: Compile LaTeX document (XeLaTeX)
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/texlive-action/full@v1
         with:
-          root_file: example-programming.tex
-          latexmk_use_xelatex: true
+          run: |
+             xelatex example-programming
+             biber   example-programming
+             xelatex example-programming
+             xelatex example-programming
 
       - name: Compile LaTeX document (LuaLaTeX)
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/texlive-action/full@v1
         with:
-          root_file: example-programming.tex
-          latexmk_use_lualatex: true
+          run: |
+             lualatex example-programming
+             biber    example-programming
+             lualatex example-programming
+             lualatex example-programming
