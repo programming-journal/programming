@@ -19,16 +19,16 @@ jobs:
            pdflatex example-programming
            pdflatex example-programming
 
-      - name: Compile LaTeX document (XeLaTeX)
-        run: |
-           xelatex example-programming
-           biber   example-programming
-           xelatex example-programming
-           xelatex example-programming
-
       - name: Compile LaTeX document (LuaLaTeX)
         run: |
            lualatex example-programming
            biber    example-programming
            lualatex example-programming
            lualatex example-programming
+
+      - name: Compile LaTeX document (XeLaTeX)
+        run: |
+           xelatex example-programming
+           biber   example-programming
+           xelatex example-programming
+           xelatex example-programming
