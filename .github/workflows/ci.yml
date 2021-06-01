@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Setup Latex
-        run: sudo apt-get install texlive-base texlive-fonts-extra texlive-luatex biber texlive-xetex texlive-latex-extra texlive-lang-greek texlive-lang-cyrillic
+        run: sudo apt-get install texlive-base texlive-fonts-extra texlive-luatex biber texlive-xetex texlive-latex-extra texlive-lang-greek texlive-lang-cyrillic texlive-science
 
       - name: Set up Git repository
         uses: actions/checkout@v2
