@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Compile LaTeX document (PdfLaTeX)
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: example-programming.tex
+
+      - name: Compile LaTeX document (XeLaTeX)
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: example-programming.tex
+          latexmk_use_xelatex: true
+
+      - name: Compile LaTeX document (LuaLaTeX)
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: example-programming.tex
+          latexmk_use_lualatex: true
