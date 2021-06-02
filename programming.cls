@@ -497,7 +497,8 @@
 
 \ifboolexpr{bool{xetex}or bool{luatex}}%
   {\newfontfamily\firaoldstylemono
-      [ Numbers = {Monospaced,OldStyle},
+      [ Path,
+        Numbers = {Monospaced,OldStyle},
         UprightFont    = *-Book ,
         ItalicFont     = *-BookItalic ,
         BoldFont    = *-Bold ,
