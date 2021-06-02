@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Compile LaTeX document (PdfLaTeX)
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: example-programming.tex
+          compiler: pdflatex
+
+      - name: Compile LaTeX document (LuaLaTeX)
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: example-programming.tex
+          compiler: lualatex
+
+      - name: Compile LaTeX document (XeLaTeX)
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: example-programming.tex
+          compiler: xelatex
