@@ -246,8 +246,8 @@
    {fixltx2e}}
    {\RequirePackage{fixltx2e}}%
 
-% don't be too noisy.
- \PassOptionsToPackage{log-declarations=false}{xparse}
+% % don't be too noisy.
+%  \PassOptionsToPackage{log-declarations=false}{xparse}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,7 +431,9 @@
   \RequirePackage{hyperref}
   \RequirePackage{bookmark}
   \RequirePackage{hyperxmp}
-  \hypersetup{keeppdfinfo}
+  \@ifpackagelater{hyperxmp}{2019/03/31}%
+    {\hypersetup{keeppdfinfo}}% new
+    {}% ok
   \RequirePackage{hypcap}
   \RequirePackage{accsupp}
 }
@@ -442,10 +444,23 @@
   {} % nothing
 
 
-\ifboolexpr{bool{luatex}or bool{xetex}}%
-  {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names}{xcolor}}
-  {\PassOptionsToPackage{table,svgnames,dvipsnames,x11names,fixpdftex}{xcolor}}
+\RequirePackage{color}
+\PassOptionsToPackage{table,svgnames,dvipsnames*,x11names}{xcolor}
+\ifboolexpr{bool{luatex} or bool{xetex}}%
+  {}%
+  {\PassOptionsToPackage{fixpdftex}{xcolor}}%
+
+% from Volume 6 on
+\AfterPackage{xcolor}%
+  {\definecolors{Aquamarine,Black,Blue,BlueViolet,Brown,CadetBlue,%
+      CornflowerBlue,Cyan,DarkOrchid,ForestGreen,Fuchsia,Goldenrod,Gray,%
+      Green,GreenYellow,Lavender,LimeGreen,Magenta,Maroon,MidnightBlue,%
+      NavyBlue,Orange,OrangeRed,Orchid,Plum,Purple,Red,Salmon,%,RoyalBlue
+      SeaGreen,SkyBlue,SpringGreen,Tan,Thistle,Turquoise,Violet,%
+      VioletRed,White,Yellow,YellowGreen}}%
 \RequirePackage{xcolor}
+
+\definecolor[named]{RoyalBlue}{RGB/cmyk}{65,105,225/.8,.61,0,0}
 \definecolor{P@Blue}{named}{RoyalBlue}
 \definecolor{P@ColorOnBlue}{gray}{.95}
 \definecolor{P@GrayFG}{named}{darkgray}
@@ -698,8 +713,8 @@
   \@@ACMccs#2@#1@}
 \def\@@ACMccs#1~#2@#3@{%
   \def\@tempa{\relax}%
-  \ifnum#3>299\def\@tempa{\itshape}\fi%
-  \ifnum#3>499\def\@tempa{\bfseries}\fi%
+  \ifnumgreater{#3}{299}{\def\@tempa{\itshape}}{}%
+  \ifnumgreater{#3}{499}{\def\@tempa{\bfseries}}{}%
   %
   \ifcsdef{@ACMccs@#1}{}{%
     \csgdef{@ACMccs@#1}{\item{}\textbf{#1} → }
