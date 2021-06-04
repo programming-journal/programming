@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
 \ProvidesClass{programming}%
-    [2020/09/19 v1.4 ^^J Articles for \P@banner^^J]
+    [2021/06/04 v1.4a ^^J Articles for \P@banner^^J]
 
 
 %%
