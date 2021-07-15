@@ -571,7 +571,8 @@
       breaklines=true}
     \setmintedinline{fontsize=\normalsize}}
 
-\AtEndPreamble{\RequirePackage{siunitx}}
+% XXX: 2021-07-15: require v2 until everything is upgraded
+\AtEndPreamble{\RequirePackage{siunitx}[=v2]}
 \AfterPackage{siunitx}{%
   \sisetup{
     binary-units,
