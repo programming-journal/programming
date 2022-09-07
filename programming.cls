@@ -585,7 +585,8 @@
     unit-optional-argument,
     parse-units = false}
   \AtEndPreamble{
-    \@ifpackageloaded{pgf}{\SendSettingsToPgf }{}
+    % If siunitx support pgf-setting, use it.
+    \@ifpackageloaded{pgf}{\csuse{SendSettingsToPgf}}{}
     \addto\extrasenglish{\sisetup{locale = US}}}}
 
 \PassOptionsToPackage{style=numeric,sortcites}{biblatex}
