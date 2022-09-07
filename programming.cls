@@ -406,7 +406,7 @@
 % 1. Varioref (directly loaded here)
 % 2. Hyperref (as late as possible, but not AtEndPreamble,
 %              as this would break biblatex)
-% 3. Varioref (as late as possible, /after/ hyperref)
+% 3. Cleveref (as late as possible, /after/ hyperref)
 % Selection based on user options.
 %
 
