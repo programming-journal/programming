@@ -819,17 +819,19 @@
   \ifblank{#3}%
     {\P@author@ORCID@@{#1}{#2}}% Blank orcid
     {\P@set@orcid{#3}\relax% sets \P@last@orcid
-      \listgadd\P@authors{%
-        \P@author@link{#2}\ignorespaces%
-        \P@affil{#1}\ignorespaces%
-        \expandafter\P@orcid\expandafter{\P@last@orcid}\relax}%
-      \P@author@finalize}}
+      \expandafter\P@author@ORCID@@@\expandafter{\P@last@orcid}{#1}{#2}}}
 
 \newcommand*\P@author@ORCID@@[2]{%
   \listgadd\P@authors{%
     \P@author@link{#2}\ignorespaces%
     \P@affil{#1}\relax}%
   \P@author@finalize}
+\newcommand*\P@author@ORCID@@@[3]{%
+      \listgadd\P@authors{%
+        \P@author@link{#3}\ignorespaces%
+        \P@affil{#2}\ignorespaces%
+        \P@orcid{#1}\relax}%
+      \P@author@finalize}
 
 % #1 affil
 % #2 author
