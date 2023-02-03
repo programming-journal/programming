@@ -155,7 +155,7 @@
       \doclicense@set}
     {\PassOptionsToPackage{modifier=#1}{doclicense}}
   \fi}
- 
+
 \P@Key{license}{
   \P@setnum{license}{@tempa}{%
     {ccby}{0},{cc-by}{0},%
@@ -236,7 +236,7 @@
 %%
 
 %% CLASS LOADING
-% \PassOptionsToPackage{latest}{latexrelease} 
+% \PassOptionsToPackage{latest}{latexrelease}
 \IfFileExists{latexrelease.sty}%
    % % Hack. we want the latest, but it spits out a warning that should be an info.
    % {\bgroup\let\PackageWarningNoLine\@gobbletwo\relax
@@ -294,7 +294,7 @@
   \setlength{\footskip}{49pt}%
   \setlength{\marginparpush}{6pt}%
   \setlength{\marginparwidth}{48pt}%
-}  
+}
 \AfterCalculatingTypearea{\P@settopbottommargins}
 \AfterSettingArea{\P@settopbottommargins}
 
@@ -687,7 +687,7 @@
 \newcommand*\acks{\paragraph*{Acknowledgements}}
 
 
-\renewcommand*{\sectionformat}{% 
+\renewcommand*{\sectionformat}{%
   \colorbox{P@Blue}{%
     {\hspace*{.15em}%
       \color{P@ColorOnBlue}%
@@ -951,7 +951,7 @@
   {\usekomafont{affiliation}%
     \printaffiliations}%
   \endgroup
-  % 
+  %
   \if!\the\authorrunning!\relax\else
     \xdef\@authorrunning{\the\authorrunning}\fi
   \if!\the\titlerunning!\else\relax
@@ -997,7 +997,7 @@
   \begingroup
   \raggedright
   \ifcsvoid{@ACMccs}{}{%
-    {\P@headersection{ACM CCS 2012}      
+    {\P@headersection{ACM CCS 2012}
       \begin{itemize}\@ACMccs\end{itemize}%
       \vspace{-\topsep}}}%
   \ifcsvoid{P@keywords}{}{%
