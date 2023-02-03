@@ -1040,7 +1040,7 @@
     {\hypersetup{pdftitle={\@title}}}%
     {\hypersetup{pdftitle={\@title: \@subtitle}}}%
   \relax%
-  \hypersetup{pdfcreator={programming},pdfproducer={programming}}% WOAMI
+  \hypersetup{pdfcreator={programming},pdfproducer={\P@version}}% WOAMI
   \ifboolexpr{bool{pdf}}%
     {\ifboolexpr{bool{luatex}}%
       {\gdef\P@aftertitle{\directlua{pdf.setsuppressoptionalinfo(15)}}}%
