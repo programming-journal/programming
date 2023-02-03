@@ -1137,6 +1137,7 @@
 \clubpenalty10000
 \widowpenalty10000
 \displaywidowpenalty=10000
+\brokenpenalty10000
 \frenchspacing
 \raggedbottom
 
