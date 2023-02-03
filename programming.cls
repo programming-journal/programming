@@ -361,6 +361,7 @@
 \defcaptionname{english}{\tableautorefname}{Table}
 \defcaptionname{english}{\lstlistingautorefname}{Listing}
 \defcaptionname{english}{\lstnumberautorefname}{Line}
+\defcaptionname{english}{\sectionautorefname}{Section}
 \defcaptionname{english}{\subsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\subsubsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\appendixautorefname}{Appendix}
