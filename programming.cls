@@ -1,24 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
+\def\P@version{8.0}
 \ProvidesClass{programming}%
-    [2022/09/07 v1.4a ^^J Articles for \P@banner^^J]
+    [2023/02/03 v\P@version ^^J Articles for \P@banner^^J]
 
-
-%%
-% `ifplatform` raises a confusing warning when an info would suffice.
-% We hack the warning out to not confuse users.
-% begin: hack
-\RequirePackage{infwarerr}
-\let\P@PWNL\PackageWarningNoLine\relax%
-\long\def\PackageWarningNoLine#1#2{%
-  \def\tempa{ifplatform}\def\tempb{#1}%
-  \ifx\tempa\tempb\@PackageInfoNoLine{#1}{#2}%
-  \else\@PackageWarningNoLine{#1}{#2}\fi}%
-\RequirePackage{hardwrap}
-\let\PackageWarningNoLine\P@PWNL\relax%
-% end: hack
-
-\GenerateLogMacros{class}[P]{programming}
+\def\P@error{\ClassError{programming}}
+\def\P@warning{\ClassWarning{programming}}
+\def\P@warning@noline{\ClassWarningNoLine{programming}}
 
 \RequirePackage{etoolbox}
 \RequirePackage{scrbase}[2014/10/28]
