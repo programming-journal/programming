@@ -20,7 +20,7 @@
 
 \GenerateLogMacros{class}[P]{programming}
 
-\RequirePackage{etoolbox,xstring}
+\RequirePackage{etoolbox}
 \RequirePackage{scrbase}[2014/10/28]
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
@@ -35,6 +35,16 @@
     {}
     \IfFileExists{luatexbase.sty}{\RequirePackage{luatexbase}}{}}%
   {}
+
+% see https://tex.stackexchange.com/questions/100209/100213#100213
+\def\iffirsttoken#1#2{%
+  \expandafter\def\expandafter\@first@token\expandafter{\@car#1\@nil}%
+  \expandafter\ifx\@first@token#2\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
 
 %%%%
 %% DATA
@@ -444,7 +454,6 @@
   {} % nothing
 
 
-\RequirePackage{color}
 \PassOptionsToPackage{table,svgnames,dvipsnames*,x11names}{xcolor}
 \ifboolexpr{bool{luatex} or bool{xetex}}%
   {}%
@@ -465,6 +474,7 @@
 \definecolor{P@ColorOnBlue}{gray}{.95}
 \definecolor{P@GrayFG}{named}{darkgray}
 \definecolor{P@GrayBG}{gray}{.90}
+\definecolor{P@ORCID}{HTML}{A6CE39}
 
 \newlength{\doclicenseimagewidth}
 \setlength{\doclicenseimagewidth}{2.7cm}
@@ -487,6 +497,7 @@
         \setlength{\fboxsep}{5pt}%
         \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\doclicenseIcon}}}}}
 
+\RequirePackage{pict2e}
 \RequirePackage[tbtags,fleqn]{amsmath}
 \PassOptionsToPackage{final}{graphicx}
 \RequirePackage{graphicx,grffile,grfext}
@@ -749,7 +760,33 @@
 %%%% Authors and Affiliation
 \newkomafont{affiliation}{\footnotesize}
 
+% ORCID logo
+\newsavebox{\P@ORCIDlogo}
+\savebox{\P@ORCIDlogo}{%
+\setlength{\unitlength}{\dimexpr 1em/256\relax}%
+\begin{picture}(256,256)%
+  \color{P@ORCID}\put(128,128){\circle*{256}}%
+  \color{white}%
+  \put(78.6,199.2){\circle*{20}}%
+  \moveto(70.9,176,9)\lineto(86.3,176,9)\lineto(86.3,69.8)\lineto(70.9,69.8)%
+  \closepath\fillpath%
+  \moveto(108.9,176.9)\lineto(150.5,176.9)%
+  \curveto(190.1,176.9)(207.5,148.6)(207.5 ,123.3)%
+  \curveto(207.5,95,8)(186,69.7)(150.7,69.7)%
+  \lineto(108.9,69.7)%
+  \closepath\fillpath%
+  \color{P@ORCID}%
+  \moveto(124.3,83.6)\lineto(148.8,83.6)%
+  \curveto(183.7,83.6)(191.7,110.1)(191.7,123.3)%
+  \curveto(191.7,144.8)(178,163)(148,163)%
+  \lineto(124.3,163)%
+  \closepath\fillpath%
+\end{picture}}
+\newcommand*\ORCIDlogo{\usebox{\P@ORCIDlogo}}
+
+
 \providecommand*\P@last@author{}
+\providecommand*\P@last@orcid{}
 \providecommand*\P@authors{}
 \newcounter{P@authors}
 \providecommand*\P@affiliations{}
@@ -762,14 +799,55 @@
     {\hyperlink{P:authorinfo:\detokenize{#1}}{#1}}%
     {#1}}%
 
-\newcommand*\P@author@[2][]{%
-  \gdef\P@last@author{#2}%
+\providecommand*\P@ORCIDlogo@space{\kern.25em\relax}
+\newcommand*\P@orcid@box[1]{%
+  \P@ORCIDlogo@space%
+  \texorpdfstring%
+    {\href{#1}{\ORCIDlogo}}%
+    {}}%
+\newcommand*\P@orcid@link[1]{%
+  \texorpdfstring%
+    {\href{#1}{%
+        \ORCIDlogo\P@ORCIDlogo@space%
+        \nolinkurl{#1}}}%
+    {\space\nolinkurl{#1}}}%
+
+
+\newcommand*\P@author@finalize{%
+  \stepcounter{P@authors}%
+  \P@author@serialize}
+
+\newcommand*\P@set@orcid[1]{%
+  % switch on url
+  \iffirsttoken{#1}{h}% https://orcid.org/0000-....
+    {\gdef\P@last@orcid{#1}}%
+    {\iffirsttoken{#1}{o}% orcid.org/0000-...
+      {\gdef\P@last@orcid{https://#1}}%
+      {\gdef\P@last@orcid{https://orcid.org/#1}}}}%
+
+\newcommand*\P@author@ORCID@{}
+\def\P@author@ORCID@#1#2[#3]{
+  \P@set@orcid{#3}\relax% sets \P@last@orcid
+  \listgadd\P@authors{%
+    \P@author@link{#2}\ignorespaces%
+    \P@affil{#1}\ignorespaces%
+    \expandafter\P@orcid\expandafter{\P@last@orcid}\relax}%
+  \P@author@finalize}
+
+\newcommand*\P@author@ORCID@@[2]{%}%
   \listgadd\P@authors{%
     \P@author@link{#2}\ignorespaces%
     \P@affil{#1}\relax}%
-  \stepcounter{P@authors}%
-  \P@author@serialize%
-}
+  \P@author@finalize}
+
+% #1 affil
+% #2 author
+\newcommand*\P@author@[2][\relax]{%
+  \gdef\P@last@author{#2}%
+  \@ifnextchar[ %]
+  {\P@author@ORCID@{#1}{#2}}%
+  {\P@author@ORCID@@{#1}{#2}}}
+
 \newcommand*\P@author@@{%
   \addtocounter{P@affiliations}{1}%
   \edef\@tempa{\alph{P@affiliations}}%
@@ -781,18 +859,19 @@
   \P@author@%
   \P@author@@}
 
+
 % Long.
 \newcommand\authorinfo[2][]{%
+  \edef\tempa{{\P@last@author}{\P@last@orcid}}
   \expandafter\listgadd%
   \expandafter\P@authorinfos%
-  \expandafter{%
-    \expandafter{\P@last@author}{#1}{#2}}}
+  \expandafter{\tempa{#1}{#2}}}
 
 
 \newlength{\P@authorinfo@imagewidth}
 \newlength{\P@current@parindent}
 \setlength{\P@authorinfo@imagewidth}{2.5cm}
-\newcommand\P@makeauthorinfo[3]{%
+\newcommand\P@makeauthorinfo[4]{%
   \begingroup%
   \setlength\P@current@parindent\parindent
   \noindent%
@@ -800,13 +879,15 @@
     \setlength\parindent\P@current@parindent
     \vspace*{0pt}%
     \noindent%
-    \strut\hypertarget{P:authorinfo:\detokenize{#1}}{\textbf{#1}}\space\ignorespaces #3\par
+    \strut\hypertarget{P:authorinfo:\detokenize{#1}}{\textbf{#1}}\space\ignorespaces #4%
+    \ifblank{#2}{}{\\\P@orcid@link{#2}}%
+    \par
   \end{minipage}%
   \hspace*{1.5\columnsep}%
   \begin{minipage}[t]{\P@authorinfo@imagewidth}%
     \vspace*{0pt}
-    \ifstrempty{#2}{\hfil}{%
-      \includegraphics[width=\P@authorinfo@imagewidth]{#2}}%
+    \ifstrempty{#3}{\hfil}{%
+      \includegraphics[width=\P@authorinfo@imagewidth]{#3}}%
   \end{minipage}%
   \par\vspace{\baselineskip}
   \endgroup}
@@ -860,6 +941,7 @@
 \let\midand\P@midand
 \let\lastand\P@lastand
 \let\P@affil\@gobble
+\let\P@orcid\@gobble
 
 \newcommand\P@author@serialize{%
   \gdef\@author{}
@@ -945,6 +1027,7 @@
   \bigskip%
   %
   {\let\P@affil\textsuperscript
+    \let\P@orcid\P@orcid@box
     \usekomafont{author}\@author \par}
   \smallskip%
   %
@@ -976,6 +1059,7 @@
     \aftergroup\P@aftertitle\relax
   \endgroup%
   \global\let\P@affil\@gobble%
+  \global\let\P@orcid\@gobble%
 }
 
 \newcommand*\P@headersection[1]{%
