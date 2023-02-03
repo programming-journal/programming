@@ -827,14 +827,16 @@
 
 \newcommand*\P@author@ORCID@{}
 \def\P@author@ORCID@#1#2[#3]{
-  \P@set@orcid{#3}\relax% sets \P@last@orcid
-  \listgadd\P@authors{%
-    \P@author@link{#2}\ignorespaces%
-    \P@affil{#1}\ignorespaces%
-    \expandafter\P@orcid\expandafter{\P@last@orcid}\relax}%
-  \P@author@finalize}
+  \ifblank{#3}%
+    {\P@author@ORCID@@{#1}{#2}}% Blank orcid
+    {\P@set@orcid{#3}\relax% sets \P@last@orcid
+      \listgadd\P@authors{%
+        \P@author@link{#2}\ignorespaces%
+        \P@affil{#1}\ignorespaces%
+        \expandafter\P@orcid\expandafter{\P@last@orcid}\relax}%
+      \P@author@finalize}}
 
-\newcommand*\P@author@ORCID@@[2]{%}%
+\newcommand*\P@author@ORCID@@[2]{%
   \listgadd\P@authors{%
     \P@author@link{#2}\ignorespaces%
     \P@affil{#1}\relax}%
