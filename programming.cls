@@ -581,7 +581,6 @@
     detect-all,
     free-standing-units,
     space-before-unit,
-    use-xspace,
     unit-optional-argument,
     parse-units = false}
   \AtEndPreamble{
@@ -676,7 +675,7 @@
 }
 
 \providecommand*\hairspace{\ifmmode\mskip1mu\else\kern0.08em\fi}
-\providecommand*\email[1]{\href{mailto:#1}{\nolinkurl{#1}}\xspace}
+\providecommand*\email[1]{\href{mailto:#1}{\nolinkurl{#1}}}
 \newenvironment{wide}
     {\list{}{%
             \leftmargin-1.5cm
