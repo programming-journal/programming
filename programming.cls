@@ -357,13 +357,13 @@
 \linespread{1.05}
 
 \AtBeginDocument{
-\defcaptionname{english}{\figureautorefname}{figure}
-\defcaptionname{english}{\tableautorefname}{table}
-\defcaptionname{english}{\lstlistingautorefname}{listing}
-\defcaptionname{english}{\lstnumberautorefname}{line}
+\defcaptionname{english}{\figureautorefname}{Figure}
+\defcaptionname{english}{\tableautorefname}{Table}
+\defcaptionname{english}{\lstlistingautorefname}{Listing}
+\defcaptionname{english}{\lstnumberautorefname}{Line}
 \defcaptionname{english}{\subsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\subsubsectionautorefname}{\sectionautorefname}
-\defcaptionname{english}{\appendixautorefname}{appendix}
+\defcaptionname{english}{\appendixautorefname}{Appendix}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -436,7 +436,7 @@
   \RequirePackage{accsupp}
 }
 
-\PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
+\PassOptionsToPackage{nameinlink,noabbrev,capitalise}{cleveref}
 \ifboolexpr{bool{P@cleveref}}%
   {\BeforeBeginEnvironment{document}{\RequirePackage{cleveref}}}
   {} % nothing
