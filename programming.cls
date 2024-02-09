@@ -141,9 +141,9 @@
 \newcommand*\P@set@license[1]{%
   \renewcommand*\P@license{#1}
   \if@atdocument
-  \P@error{License set too late, move \string\paperdetails up in the document.}%
+  \P@error{License set too late, move \string\paperdetails\space up in the document.}%
   {The license cannot be set to ``#1'' at this point in the process. Please
-    move the \string\paperdetails command before the \string\begin\{document\}
+    move the \string\paperdetails\space command before the \string\begin\{document\}
     command.}
   \else
   \@ifpackageloaded{doclicense}%
