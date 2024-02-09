@@ -465,26 +465,55 @@
 \definecolor{P@GrayBG}{gray}{.90}
 \definecolor{P@ORCID}{HTML}{A6CE39}
 
-\newlength{\doclicenseimagewidth}
-\setlength{\doclicenseimagewidth}{2.7cm}
-\RequirePackage[
-  type={CC},
-  modifier=\P@license,
-  version={4.0},
-  imagewidth=\doclicenseimagewidth,
-]{doclicense}
+%
+% We're emulating doclicense and having none of its shenanigans
+%
+\newlength{\P@doclicenseimagewidth}
+\setlength{\P@doclicenseimagewidth}{2.7cm}
+\RequirePackage{ccicons}
+\def\P@doclicenseversionUsed{4.0}
+\def\P@doclicenseimagemodifier{-88x31}
 
-% Fixes for intermediate versions.
-% TL 2015
-% this is actually an installation bug for TL 2015,
-% but we cannot reliably test that, so we resort to the check
-% if the package is new enough for TL 2016.
-\@ifpackagelater{doclicense}{2016/04/24}%
-  {\let\P@doclicenseImage\doclicenseImage}% we're good.
-  {\def\P@doclicenseImage{%
-      \makebox[\doclicenseimagewidth]{%
-        \setlength{\fboxsep}{5pt}%
-        \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\doclicenseIcon}}}}}
+\def\P@doclicenseImageFileName{doclicense-CC-\P@license\P@doclicenseimagemodifier}
+
+\def\P@doclicensetext#1{This work is licensed under a #1 license}
+\def\P@doclicenseText{\href{\P@doclicenseURL}{``\P@doclicensetext{CC~\MakeUppercase{\P@license}~\P@doclicenseversionUsed}''}}
+\def\P@doclicenseLongTextForHyperref{\P@doclicensetext{Creative Commons "\csuse{P@doclicense@l@\P@license @\P@doclicenseversionUsed}"}}
+\def\P@doclicenseIcon{\csuse{P@doclicense@i@\P@license @\P@doclicenseversionUsed}}
+\csdef{P@doclicense@l@by@4.0}{Attribution 4.0 International}%
+% \csdef{P@doclicense@l@by-sa@4.0}{Attribution-ShareAlike 4.0 International}%
+% \csdef{P@doclicense@l@by-nd@4.0}{Attribution-NoDerivatives 4.0 International}%
+\csdef{P@doclicense@l@by-nc@4.0}{Attribution-NonCommercial 4.0 International}%
+% \csdef{P@doclicense@l@by-nc-sa@4.0}{Attribution-NonCommercial-ShareAlike 4.0 International}%
+% \csdef{P@doclicense@l@by-nc-nd@4.0}{Attribution-NonCommercial-NoDerivatives 4.0 International}%
+\csdef{P@doclicense@i@by@4.0}{\ccby}%
+% \csdef{P@doclicense@i@by-sa@4.0}{\ccbysa}%
+% \csdef{P@doclicense@i@by-nd@4.0}{\ccbynd}%
+\csdef{P@doclicense@i@by-nc@4.0}{\ccbync}%
+% \csdef{P@doclicense@i@by-nc-sa@4.0}{\ccbyncsa}%
+% \csdef{P@doclicense@i@by-nc-nd@4.0}{\ccbyncnd}%
+
+\def\P@doclicenseImage@{%
+  \href%
+    {\P@doclicenseURL}%
+    {\includegraphics[width=\P@doclicenseimagewidth]{\P@doclicenseImageFileName}}}
+\def\P@doclicenseImage@@{%
+  \makebox[\P@doclicenseimagewidth]%
+    {\setlength{\fboxsep}{5pt}%
+      \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\P@doclicenseIcon}}}}
+\IfFileExists{\P@doclicenseImageFileName.pdf}% new image present
+  {\let\P@doclicenseImage\P@doclicenseImage@}%
+  {\def\P@doclicenseImageFileName{doclicense-CC-\P@license}
+    \IfFileExists{\P@doclicenseImageFileName.pdf}% old image present
+      {\let\P@doclicenseImage\P@doclicenseImage@}%
+      {\let\P@doclicenseImage\P@doclicenseImage@@}}% no image present, us icon
+
+ 
+\BeforeBeginEnvironment{document}{%
+  \edef\P@doclicenseURL{https://creativecommons.org/licenses/\P@license/\P@doclicenseversionUsed/deed.en}
+  \hypersetup{%
+    pdfcopyright  = {\P@doclicenseLongTextForHyperref},
+    pdflicenseurl = {\P@doclicenseURL}}}
 
 \RequirePackage{pict2e}
 \RequirePackage[tbtags,fleqn]{amsmath}
@@ -976,11 +1005,11 @@
     \hspace{-1mm}\P@doclicenseImage%
     \hfill%
     \begin{minipage}[b]%
-      {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
+      {\dimexpr\linewidth - \P@doclicenseimagewidth - 1\columnsep\relax}%
       \ignorespaces
       \scriptsize%
       \textcopyright\ {\@authorrunning}\\
-      \doclicenseText\\
+      \P@doclicenseText\\
       \ifboolexpr{bool{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%
