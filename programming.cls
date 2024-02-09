@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
-\def\P@version{8.0}
+\def\P@version{8.1}
 \ProvidesClass{programming}%
     [2023/02/03 v\P@version ^^J Articles for \P@banner^^J]
 
@@ -137,22 +137,15 @@
 
 
 \providecommand*\P@license{by}
-
 \newcommand*\P@set@license[1]{%
-  \renewcommand*\P@license{#1}
   \if@atdocument
-  \P@error{License set too late, move \string\paperdetails up in the document.}%
-  {The license cannot be set to ``#1'' at this point in the process. Please
-    move the \string\paperdetails command before the \string\begin\{document\}
-    command.}
-  \else
-  \@ifpackageloaded{doclicense}%
-    {\undef\doclicenseURL%
-      \setkeys{doclicense}{modifier=#1}%
-      % hack: propagate settings
-      \doclicense@set}
-    {\PassOptionsToPackage{modifier=#1}{doclicense}}
-  \fi}
+  \P@error{License set too late, move \string\paperdetails\space up in the document.}%
+    {The license cannot be set to ``#1'' at this point in the process. Please
+     move the \string\paperdetails\space command before the \string\begin{document}
+     command.}
+  \fi
+  \renewcommand*\P@license{#1}%
+  \P@lic@setURL}%
 
 \P@Key{license}{
   \P@setnum{license}{@tempa}{%
@@ -465,26 +458,65 @@
 \definecolor{P@GrayBG}{gray}{.90}
 \definecolor{P@ORCID}{HTML}{A6CE39}
 
-\newlength{\doclicenseimagewidth}
-\setlength{\doclicenseimagewidth}{2.7cm}
-\RequirePackage[
-  type={CC},
-  modifier=\P@license,
-  version={4.0},
-  imagewidth=\doclicenseimagewidth,
-]{doclicense}
+%
+% We're emulating doclicense and having none of its shenanigans
+%
+% Data.
+\newlength{\P@lic@imagewidth}
+\setlength{\P@lic@imagewidth}{2.7cm}
+\newcommand*\P@lic@version{4.0}
+\newcommand*\P@lic@imagemodifier{-88x31}
+%
+\csdef{P@lic@l@by@4.0}{Attribution 4.0 International}%
+% \csdef{P@lic@l@by-sa@4.0}{Attribution-ShareAlike 4.0 International}%
+% \csdef{P@lic@l@by-nd@4.0}{Attribution-NoDerivatives 4.0 International}%
+\csdef{P@lic@l@by-nc@4.0}{Attribution-NonCommercial 4.0 International}%
+% \csdef{P@lic@l@by-nc-sa@4.0}{Attribution-NonCommercial-ShareAlike 4.0 International}%
+% \csdef{P@lic@l@by-nc-nd@4.0}{Attribution-NonCommercial-NoDerivatives 4.0 International}%
+%
+% These require ccicons, and we take care of that when necessary.
+% If someone uses these regardless, they can sure keep the errors
+\csdef{P@lic@i@by@4.0}{\ccby}%
+% \csdef{P@lic@i@by-sa@4.0}{\ccbysa}%
+% \csdef{P@lic@i@by-nd@4.0}{\ccbynd}%
+\csdef{P@lic@i@by-nc@4.0}{\ccbync}%
+% \csdef{P@lic@i@by-nc-sa@4.0}{\ccbyncsa}%
+% \csdef{P@lic@i@by-nc-nd@4.0}{\ccbyncnd}%
 
-% Fixes for intermediate versions.
-% TL 2015
-% this is actually an installation bug for TL 2015,
-% but we cannot reliably test that, so we resort to the check
-% if the package is new enough for TL 2016.
-\@ifpackagelater{doclicense}{2016/04/24}%
-  {\let\P@doclicenseImage\doclicenseImage}% we're good.
-  {\def\P@doclicenseImage{%
-      \makebox[\doclicenseimagewidth]{%
-        \setlength{\fboxsep}{5pt}%
-        \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\doclicenseIcon}}}}}
+\newcommand*\P@lic@ImageFileName{doclicense-CC-\P@license\P@lic@imagemodifier}
+\newcommand*\P@lic@OldImageFileName{doclicense-CC-\P@license}
+\newcommand*\P@lic@text[1]{This work is licensed under a #1 license}
+\newcommand*\P@lic@Text{\P@lic@text{\href{\P@lic@URL}{``CC~\MakeUppercase{\P@license}~\P@lic@version}''}}
+\newcommand*\P@lic@LongTextForHyperref{\P@lic@text{Creative Commons "\csuse{P@lic@l@\P@license @\P@lic@version}"}}
+\newcommand*\P@lic@Icon{\csuse{P@lic@i@\P@license @\P@lic@version}}
+
+\newcommand*\P@lic@Image@%
+  {\href%
+    {\P@lic@URL}%
+    {\includegraphics[width=\P@lic@imagewidth]{\P@lic@ImageFileName}}}
+\newcommand*\P@lic@Image@@%
+  {\makebox[\P@lic@imagewidth]%
+    {\setlength{\fboxsep}{5pt}%
+     \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\P@lic@Icon}}}}
+\providecommand*\P@lic@Image{}
+\IfFileExists{doclicense.sty}% borrow images
+  {\let\P@lic@Image\P@lic@Image@%
+   \IfFileExists{\P@lic@ImageFileName.pdf}
+     % image not present, but if doclicense is, assume old
+     {}{\let\P@lic@ImageFileName\P@lic@OldImageFileName}}
+  {\RequirePackage{ccicons}% no image present, us icon
+   \let\P@lic@Image\P@lic@Image@@}
+%
+% hook into hyperxmp at document begin
+%
+\providecommand*\P@lic@URL{https://creativecommons.org/licenses/by/4.0/deed.en}
+\newcommand*\P@lic@setURL{\xdef\P@lic@URL{https://creativecommons.org/licenses/\P@license/\P@lic@version/deed.en}}
+
+\BeforeBeginEnvironment{document}%
+  {\P@lic@setURL
+  \hypersetup{%
+    pdfcopyright  = {\P@lic@LongTextForHyperref},
+    pdflicenseurl = {\P@lic@URL}}}
 
 \RequirePackage{pict2e}
 \RequirePackage[tbtags,fleqn]{amsmath}
@@ -973,14 +1005,14 @@
   \begin{minipage}[b][0pt][b]{\textwidth}
     \null\noindent%
     \normalfont%
-    \hspace{-1mm}\P@doclicenseImage%
+    \hspace{-1mm}\P@lic@Image%
     \hfill%
     \begin{minipage}[b]%
-      {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
+      {\dimexpr\linewidth - \P@lic@imagewidth - 1\columnsep\relax}%
       \ignorespaces
       \scriptsize%
       \textcopyright\ {\@authorrunning}\\
-      \doclicenseText\\
+      \P@lic@Text\\
       \ifboolexpr{bool{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%

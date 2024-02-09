@@ -7,22 +7,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Compile LaTeX document (PdfLaTeX)
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: pdflatex
+          args: -pdflatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
       - name: Compile LaTeX document (LuaLaTeX)
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: lualatex
+          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
       - name: Compile LaTeX document (XeLaTeX)
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: xelatex
+          args: -xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
