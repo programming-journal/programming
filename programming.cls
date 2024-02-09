@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
-\def\P@version{8.0}
+\def\P@version{8.1}
 \ProvidesClass{programming}%
     [2023/02/03 v\P@version ^^J Articles for \P@banner^^J]
 
