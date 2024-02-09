@@ -13,16 +13,16 @@ jobs:
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: pdflatex
+          args: -pdflatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
       - name: Compile LaTeX document (LuaLaTeX)
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: lualatex
+          args: -lualatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
       - name: Compile LaTeX document (XeLaTeX)
         uses: dante-ev/latex-action@latest
         with:
           root_file: example-programming.tex
-          compiler: xelatex
+          args: -xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
