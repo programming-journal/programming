@@ -137,22 +137,15 @@
 
 
 \providecommand*\P@license{by}
-
 \newcommand*\P@set@license[1]{%
-  \renewcommand*\P@license{#1}
   \if@atdocument
   \P@error{License set too late, move \string\paperdetails\space up in the document.}%
-  {The license cannot be set to ``#1'' at this point in the process. Please
-    move the \string\paperdetails\space command before the \string\begin\{document\}
-    command.}
-  \else
-  \@ifpackageloaded{doclicense}%
-    {\undef\doclicenseURL%
-      \setkeys{doclicense}{modifier=#1}%
-      % hack: propagate settings
-      \doclicense@set}
-    {\PassOptionsToPackage{modifier=#1}{doclicense}}
-  \fi}
+    {The license cannot be set to ``#1'' at this point in the process. Please
+     move the \string\paperdetails\space command before the \string\begin{document}
+     command.}
+  \fi
+  \renewcommand*\P@license{#1}%
+  \P@lic@setURL}%
 
 \P@Key{license}{
   \P@setnum{license}{@tempa}{%
@@ -468,52 +461,62 @@
 %
 % We're emulating doclicense and having none of its shenanigans
 %
-\newlength{\P@doclicenseimagewidth}
-\setlength{\P@doclicenseimagewidth}{2.7cm}
-\RequirePackage{ccicons}
-\def\P@doclicenseversionUsed{4.0}
-\def\P@doclicenseimagemodifier{-88x31}
+% Data.
+\newlength{\P@lic@imagewidth}
+\setlength{\P@lic@imagewidth}{2.7cm}
+\newcommand*\P@lic@version{4.0}
+\newcommand*\P@lic@imagemodifier{-88x31}
+%
+\csdef{P@lic@l@by@4.0}{Attribution 4.0 International}%
+% \csdef{P@lic@l@by-sa@4.0}{Attribution-ShareAlike 4.0 International}%
+% \csdef{P@lic@l@by-nd@4.0}{Attribution-NoDerivatives 4.0 International}%
+\csdef{P@lic@l@by-nc@4.0}{Attribution-NonCommercial 4.0 International}%
+% \csdef{P@lic@l@by-nc-sa@4.0}{Attribution-NonCommercial-ShareAlike 4.0 International}%
+% \csdef{P@lic@l@by-nc-nd@4.0}{Attribution-NonCommercial-NoDerivatives 4.0 International}%
+%
+% These require ccicons, and we take care of that when necessary.
+% If someone uses these regardless, they can sure keep the errors
+\csdef{P@lic@i@by@4.0}{\ccby}%
+% \csdef{P@lic@i@by-sa@4.0}{\ccbysa}%
+% \csdef{P@lic@i@by-nd@4.0}{\ccbynd}%
+\csdef{P@lic@i@by-nc@4.0}{\ccbync}%
+% \csdef{P@lic@i@by-nc-sa@4.0}{\ccbyncsa}%
+% \csdef{P@lic@i@by-nc-nd@4.0}{\ccbyncnd}%
 
-\def\P@doclicenseImageFileName{doclicense-CC-\P@license\P@doclicenseimagemodifier}
+\newcommand*\P@lic@ImageFileName{doclicense-CC-\P@license\P@lic@imagemodifier}
+\newcommand*\P@lic@OldImageFileName{doclicense-CC-\P@license}
+\newcommand*\P@lic@text[1]{This work is licensed under a #1 license}
+\newcommand*\P@lic@Text{\P@lic@text{\href{\P@lic@URL}{``CC~\MakeUppercase{\P@license}~\P@lic@version}''}}
+\newcommand*\P@lic@LongTextForHyperref{\P@lic@text{Creative Commons "\csuse{P@lic@l@\P@license @\P@lic@version}"}}
+\newcommand*\P@lic@Icon{\csuse{P@lic@i@\P@license @\P@lic@version}}
 
-\def\P@doclicensetext#1{This work is licensed under a #1 license}
-\def\P@doclicenseText{\href{\P@doclicenseURL}{``\P@doclicensetext{CC~\MakeUppercase{\P@license}~\P@doclicenseversionUsed}''}}
-\def\P@doclicenseLongTextForHyperref{\P@doclicensetext{Creative Commons "\csuse{P@doclicense@l@\P@license @\P@doclicenseversionUsed}"}}
-\def\P@doclicenseIcon{\csuse{P@doclicense@i@\P@license @\P@doclicenseversionUsed}}
-\csdef{P@doclicense@l@by@4.0}{Attribution 4.0 International}%
-% \csdef{P@doclicense@l@by-sa@4.0}{Attribution-ShareAlike 4.0 International}%
-% \csdef{P@doclicense@l@by-nd@4.0}{Attribution-NoDerivatives 4.0 International}%
-\csdef{P@doclicense@l@by-nc@4.0}{Attribution-NonCommercial 4.0 International}%
-% \csdef{P@doclicense@l@by-nc-sa@4.0}{Attribution-NonCommercial-ShareAlike 4.0 International}%
-% \csdef{P@doclicense@l@by-nc-nd@4.0}{Attribution-NonCommercial-NoDerivatives 4.0 International}%
-\csdef{P@doclicense@i@by@4.0}{\ccby}%
-% \csdef{P@doclicense@i@by-sa@4.0}{\ccbysa}%
-% \csdef{P@doclicense@i@by-nd@4.0}{\ccbynd}%
-\csdef{P@doclicense@i@by-nc@4.0}{\ccbync}%
-% \csdef{P@doclicense@i@by-nc-sa@4.0}{\ccbyncsa}%
-% \csdef{P@doclicense@i@by-nc-nd@4.0}{\ccbyncnd}%
-
-\def\P@doclicenseImage@{%
-  \href%
-    {\P@doclicenseURL}%
-    {\includegraphics[width=\P@doclicenseimagewidth]{\P@doclicenseImageFileName}}}
-\def\P@doclicenseImage@@{%
-  \makebox[\P@doclicenseimagewidth]%
+\newcommand*\P@lic@Image@%
+  {\href%
+    {\P@lic@URL}%
+    {\includegraphics[width=\P@lic@imagewidth]{\P@lic@ImageFileName}}}
+\newcommand*\P@lic@Image@@%
+  {\makebox[\P@lic@imagewidth]%
     {\setlength{\fboxsep}{5pt}%
-      \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\P@doclicenseIcon}}}}
-\IfFileExists{\P@doclicenseImageFileName.pdf}% new image present
-  {\let\P@doclicenseImage\P@doclicenseImage@}%
-  {\def\P@doclicenseImageFileName{doclicense-CC-\P@license}
-    \IfFileExists{\P@doclicenseImageFileName.pdf}% old image present
-      {\let\P@doclicenseImage\P@doclicenseImage@}%
-      {\let\P@doclicenseImage\P@doclicenseImage@@}}% no image present, us icon
+     \raisebox{.5\baselineskip}{\colorbox{P@GrayBG}{\Huge\selectfont\P@lic@Icon}}}}
+\providecommand*\P@lic@Image{}
+\IfFileExists{doclicense.sty}% borrow images
+  {\let\P@lic@Image\P@lic@Image@%
+   \IfFileExists{\P@lic@ImageFileName.pdf}
+     % image not present, but if doclicense is, assume old
+     {}{\let\P@lic@ImageFileName\P@lic@OldImageFileName}}
+  {\RequirePackage{ccicons}% no image present, us icon
+   \let\P@lic@Image\P@lic@Image@@}
+%
+% hook into hyperxmp at document begin
+%
+\providecommand*\P@lic@URL{https://creativecommons.org/licenses/by/4.0/deed.en}
+\newcommand*\P@lic@setURL{\xdef\P@lic@URL{https://creativecommons.org/licenses/\P@license/\P@lic@version/deed.en}}
 
- 
-\BeforeBeginEnvironment{document}{%
-  \edef\P@doclicenseURL{https://creativecommons.org/licenses/\P@license/\P@doclicenseversionUsed/deed.en}
+\BeforeBeginEnvironment{document}%
+  {\P@lic@setURL
   \hypersetup{%
-    pdfcopyright  = {\P@doclicenseLongTextForHyperref},
-    pdflicenseurl = {\P@doclicenseURL}}}
+    pdfcopyright  = {\P@lic@LongTextForHyperref},
+    pdflicenseurl = {\P@lic@URL}}}
 
 \RequirePackage{pict2e}
 \RequirePackage[tbtags,fleqn]{amsmath}
@@ -1002,14 +1005,14 @@
   \begin{minipage}[b][0pt][b]{\textwidth}
     \null\noindent%
     \normalfont%
-    \hspace{-1mm}\P@doclicenseImage%
+    \hspace{-1mm}\P@lic@Image%
     \hfill%
     \begin{minipage}[b]%
-      {\dimexpr\linewidth - \P@doclicenseimagewidth - 1\columnsep\relax}%
+      {\dimexpr\linewidth - \P@lic@imagewidth - 1\columnsep\relax}%
       \ignorespaces
       \scriptsize%
       \textcopyright\ {\@authorrunning}\\
-      \P@doclicenseText\\
+      \P@lic@Text\\
       \ifboolexpr{bool{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%
