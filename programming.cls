@@ -8,7 +8,7 @@
 \def\P@warning{\ClassWarning{programming}}
 \def\P@warning@noline{\ClassWarningNoLine{programming}}
 
-\RequirePackage{etoolbox}
+\RequirePackage{etoolbox,xstring}
 \RequirePackage{scrbase}[2014/10/28]
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
