@@ -1,0 +1,518 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass programming
+\options english,submission
+\use_default_options true
+\maintain_unincluded_children no
+\language american
+\language_package default
+\inputencoding utf8
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement class
+\float_alignment class
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine biblatex
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content true
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Title
+The Art,
+ Science,
+ and Engineering of Programming
+\end_layout
+
+\begin_layout Titlerunning
+Preparing Articles for Programming
+\end_layout
+
+\begin_layout Subtitle
+Preparing Articles for Programming
+\end_layout
+
+\begin_layout Author
+Tobias Pape
+\begin_inset Argument post:1
+status open
+
+\begin_layout Plain Layout
+0000-0003-0110-6918
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Authorinfo
+is the author of this \SpecialChar LaTeX
+ class.
+ Contact him at 
+\begin_inset Flex email
+status open
+
+\begin_layout Plain Layout
+tobias.pape@hpi.uni-potsdam.de
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Affiliation
+Hasso Plattner Institute,
+ University of Potsdam,
+ Germany
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Cristina V.
+ Lopes
+\begin_inset Argument post:1
+status open
+
+\begin_layout Plain Layout
+orcid.org/0000-0003-0551-3908
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Authorinfo
+is associate editor for the first two issues of The Art,
+ Science,
+ and Engineering of Programming.
+ Contact her at 
+\begin_inset Flex email
+status open
+
+\begin_layout Plain Layout
+lopes@ics.uci.edu
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Affiliation
+University of California,
+ Irvine,
+ USA
+\end_layout
+
+\begin_layout Author
+Robert Hirschfeld
+\begin_inset Argument post:1
+status open
+
+\begin_layout Plain Layout
+https://orcid.org/0000-0002-4249-6003
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Authorinfo
+is chair of the AOSA steering committee.
+ The Art,
+ Science,
+ and Engineering of Programming is published by AOSA.
+ Contact Robert at 
+\begin_inset Flex email
+status open
+
+\begin_layout Plain Layout
+hirschfeld@hpi.uni-potsdam.de
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paperdetails
+
+perspective=art,
+ area={Social Coding,
+ General-purpose programming}
+\end_layout
+
+\begin_layout CCSXML
+
+<ccs2012>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_id>10002944.10011122.10003459</concept_id>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_desc>General and reference~Computing standards,
+ RFCs and guidelines</concept_desc>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_significance>300</concept_significance>
+\end_layout
+
+\begin_layout CCSXML
+
+</concept>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_id>10010405.10010476.10010477</concept_id>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_desc>Applied computing~Publishing</concept_desc>
+\end_layout
+
+\begin_layout CCSXML
+
+<concept_significance>300</concept_significance>
+\end_layout
+
+\begin_layout CCSXML
+
+</concept>
+\end_layout
+
+\begin_layout CCSXML
+
+</ccs2012>
+\end_layout
+
+\begin_layout ccsdesc
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+300
+\end_layout
+
+\end_inset
+
+General and reference~Computing standards,
+ RFCs and guidelines
+\end_layout
+
+\begin_layout ccsdesc
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+500
+\end_layout
+
+\end_inset
+
+Applied computing~Publishing
+\end_layout
+
+\begin_layout Keywords
+
+programming journal,
+ paper formatting,
+ submission preparation
+\end_layout
+
+\begin_layout Abstract
+
+Many academic journals and conferences exist that publish research related to programming,
+ starting with programming languages,
+ software engineering,
+ and expanding to the whole Computer Science field.
+ Yet,
+ many of us feel that,
+ as the field of Computer Science expanded,
+ programming,
+ in itself,
+ has been neglected to a secondary role not worthy of scholarly attention.
+\end_layout
+
+\begin_layout Abstract
+
+We posit that a scholarly journal focusing primarily on programming will help close this gap,
+ and foster a more meaningful bridge between research and the practice of software development.
+\end_layout
+
+\begin_layout Abstract
+
+The Art,
+ Science,
+ and Engineering of Programming accepts papers under several perspectives:
+ the art itself (programming styles,
+ pearls,
+ models,
+ languages),
+ the emerging science of understanding what works and what doesn’t work in general and in specific contexts,
+ as well as more established engineering and mathematical perspectives.
+\end_layout
+
+\begin_layout Abstract
+
+This journal aims at placing the wonderful art of programming in the map of scholarly works.
+ 
+\end_layout
+
+\begin_layout Abstract
+
+We present this short paper as an example of,
+ and a guide to,
+ writing articles for The Art,
+ Science,
+ and Engineering of Programming journal.
+ The complete template is provided:
+ the class file (
+\begin_inset Flex texttt
+status open
+
+\begin_layout Plain Layout
+
+programming.cls
+\end_layout
+
+\end_inset
+
+),
+ an example paper (
+\begin_inset Flex texttt
+status open
+
+\begin_layout Plain Layout
+
+example-programming.tex
+\end_layout
+
+\end_inset
+
+,
+ this file),
+ and an example bibliography file (
+\begin_inset Flex texttt
+status open
+
+\begin_layout Plain Layout
+
+example.bib
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Abstract
+
+Much of the progress in Computer Science lies on the basis of computer programs,
+ the people who write them,
+ and the concepts and tools available to them to express computational tasks.
+ The existence of a journal focusing on programming is of utmost importance for strengthening our understanding of these activities.
+\end_layout
+
+\begin_layout Section
+A Guided Tour
+\end_layout
+
+\begin_layout Standard
+The content of a paper is its most important
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This is a footnote.
+\end_layout
+
+\end_inset
+
+ ingredient.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/cacm/Knuth74,babel,booktabs,l2tabu,siunitx,threeparttable"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Acknowledgments
+
+We want to thank you for using this class to prepare articles for The Art,
+ Science,
+ and Engineering of Programming.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%% This command is needed for example.bib,
+ but not needed in general otherwise
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand*{
+\backslash
+CTAN}[1]{
+\backslash
+href{http://ctan.org/tex-archive/#1}{
+\backslash
+nolinkurl{CTAN:#1}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "example"
+options "plainurl"
+encoding "default"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

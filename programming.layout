@@ -1,0 +1,137 @@
+#% Do not delete the line below; configure depends on this
+#  \DeclareLaTeXClass[programming]{Programming}
+#  \DeclareCategory{Articles}
+# https://github.com/programming-journal/programming
+# Tony Garnock-Jones <tonyg@leastfixedpoint.com>, 2024-08-02
+
+Input scrartcl.layout
+
+Style Author
+      Argument 1
+               LabelString "Affiliation letter|A"
+               Tooltip "Superscript letter to label author name with, e.g. a or b or c"
+      EndArgument
+      Argument post:1
+               LabelString "ORCID|O"
+               Tooltip "Author's ORCID, e.g. 1234-5678-9012-3456 or orcid.org/1234-5678-9012-3456"
+      EndArgument
+End
+
+Style Titlerunning
+      CopyStyle Title
+      LatexName titlerunning
+      Font
+        Color gray
+        Size Larger
+      EndFont
+      LabelString "Running title: "
+End
+
+Style Authorinfo
+      Align Center
+      Category FrontMatter
+      InTitle 1
+      LabelString "Author Info: "
+      LabelType Static
+      LabelFont
+        Color textlabel1
+        Shape Italic
+        Family Roman
+      EndFont
+      LatexType Command
+      LatexName authorinfo
+End
+
+Style Affiliation
+      CopyStyle Authorinfo
+      LabelString "Affiliation: "
+      LatexName affiliation
+      Argument 1
+               LabelString "Affiliation letter|A"
+               Tooltip "Superscript letter to label author name with, e.g. a or b or c"
+      EndArgument
+End
+
+Style CCSXML
+      Category FrontMatter
+      LabelString "CCSXML"
+      LabelType Above
+      LatexType Environment
+      LatexName CCSXML
+      PassThru 1
+      InTitle 1
+End
+
+Style ccsdesc
+      Category FrontMatter
+      LabelString "ccsdesc: "
+      LabelIndent MMMM
+      LeftMargin MMMM
+      LabelType Static
+      LatexType Command
+      LatexName ccsdesc
+      PassThru 1
+      InTitle 1
+      Argument 1
+               LabelString "Number|N"
+               Tooltip "ccsdesc number, e.g. 300 or 500 etc"
+      EndArgument
+End
+
+Style Paperdetails
+      Category FrontMatter
+      LabelString "paperdetails: "
+      LabelIndent MMMMMM
+      LeftMargin MMMMMM
+      LabelType Static
+      LatexType Command
+      LatexName paperdetails
+      BottomSep 0.4
+      PassThru 1
+      InPreamble 1
+End
+
+Style Keywords
+      Category FrontMatter
+      LabelString "keywords: "
+      LabelIndent MMMM
+      LeftMargin MMMM
+      LabelType Static
+      LatexType Command
+      LatexName keywords
+      InTitle 1
+End
+
+InsetLayout Flex:email
+            LyxType charstyle
+            LabelString email
+            LatexType command
+            LatexName email
+End
+
+InsetLayout Flex:texttt
+            LyxType charstyle
+            LabelString texttt
+            LatexType command
+            LatexName texttt
+            Font
+              Family Typewriter
+            EndFont
+End
+
+Style Acknowledgments
+        LatexType command
+	LatexName		acks
+	Category		BackMatter
+	InTitle			0
+	LabelFont
+	  Series              Bold
+	EndFont
+        TopSep 0.4
+	LabelBottomsep	0
+	LabelType		Above
+	LabelString		"Acknowledgments"
+	DocBookTag              para
+	DocBookWrapperTag       acknowledgements
+	DocBookSection          true
+End
