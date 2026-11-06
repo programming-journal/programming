@@ -837,6 +837,9 @@
   \stepcounter{P@authors}%
   \P@author@serialize}
 
+\newcommand*\P@reset@orcid{%
+  \gdef\P@last@orcid{}}
+
 \newcommand*\P@set@orcid[1]{%
   % switch on url
   \iffirsttoken{#1}{h}% https://orcid.org/0000-....
@@ -867,6 +870,7 @@
 % #1 affil
 % #2 author
 \newcommand*\P@author@[2][\relax]{%
+  \P@reset@orcid{}%
   \gdef\P@last@author{#2}%
   \@ifnextchar[ %]
   {\P@author@ORCID@{#1}{#2}}%
@@ -1074,7 +1078,7 @@
     {\hypersetup{pdftitle={\@title}}}%
     {\hypersetup{pdftitle={\@title: \@subtitle}}}%
   \relax%
-  \hypersetup{pdfcreator={programming},pdfproducer={\P@version}}% WOAMI
+  \hypersetup{pdfcreator={programming},pdfproducer={\P@version}}% WHOAMI
   \ifboolexpr{bool{pdf}}%
     {\ifboolexpr{bool{luatex}}%
       {\gdef\P@aftertitle{\directlua{pdf.setsuppressoptionalinfo(15)}}}%
